@@ -9,7 +9,7 @@ export default function AssignmentEditor() {
   </div>
 
 <div className="list-group">
-<a className="list-group-item">
+<div className="list-group-item">
    The assignment is <span className="wd-fg-color-red"> available online </span> <br /><br />
    Submit a link to the landing page of your Web application running on Netlify. <br /><br />
    The landing page should include the following: <br /><br />
@@ -21,7 +21,7 @@ export default function AssignmentEditor() {
         </ul>
         <br></br>
     The Kanabs application should include a link to navigate back to the landing page.
-   </a>
+   </div>
 </div>
 
 <form>
@@ -56,7 +56,7 @@ export default function AssignmentEditor() {
     <tr>
     <td className="text-end align-top"><label htmlFor="inputAssign" className="form-label">Submission Type</label></td>      <td>
         <div className="list-group">
-          <a className="list-group-item">
+          <div className="list-group-item">
           <select className="form-select" id="inputSubmissionType">
           <option selected>Online</option>
         </select>
@@ -79,7 +79,7 @@ export default function AssignmentEditor() {
               <label className="form-check-label" htmlFor="r6">File Uploads</label>
               <br /><br />
             </div>
-          </a>
+          </div>
         </div>
       </td>
     </tr>
@@ -91,7 +91,7 @@ export default function AssignmentEditor() {
   </td>
   <td>
     <div className="list-group">
-      <a className="list-group-item">
+      <div className="list-group-item">
         {/* Assign to and Date stacked */}
         <div className="mb-3">
           <label htmlFor="inputAssignTo" className="form-label"><b>Assign to</b></label>
@@ -113,7 +113,7 @@ export default function AssignmentEditor() {
             <input type="date" className="form-control" id="inputAssignUntil" />
           </div>
         </div>
-      </a>
+      </div>
     </div>
   </td>
 </tr>
