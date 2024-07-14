@@ -9,7 +9,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img src="https://www.popwebdesign.net/popart_blog/wp-content/uploads/2018/03/reactjs.jpg" width="100%"/>
+                  <img src="https://www.popwebdesign.net/popart_blog/wp-content/uploads/2018/03/reactjs.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
                 CS1234 React JS
@@ -27,7 +27,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course1" src="images/course1.jpg" width="100%"/>
+                  <img id="wd-course1" src="images/course1.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS2345 Introduction to Modern Web Development
@@ -45,7 +45,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course2" src="images/course2.jpg" width="100%"/>
+                  <img id="wd-course2" src="images/course2.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS3456 Advanced React.js
@@ -63,7 +63,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course3" src="images/course3.jpg" width="100%"/>
+                  <img id="wd-course3" src="images/course3.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS4567 Full Stack Web Development with React and Node.js
@@ -81,7 +81,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course4" src="images/course4.jpg" width="100%"/>
+                  <img id="wd-course4" src="images/course4.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS5678 React Native Development
@@ -99,7 +99,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course5" src="images/course5.jpg" width="100%"/>
+                  <img id="wd-course5" src="images/course5.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS6789 State Management in React.js
@@ -117,7 +117,7 @@ export default function Dashboard() {
             <div className="card">
               <a className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home">
-                  <img id="wd-course6" src="images/course6.jpg" width="100%"/>
+                  <img id="wd-course6" src="images/course6.jpg" alt="" width="100%"/>
                   <div className="card-body">
               <h5 className="wd-dashboard-course-title card-title">
               CS7890 Testing and Debugging in React.js
