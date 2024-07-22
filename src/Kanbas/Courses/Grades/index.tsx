@@ -7,18 +7,16 @@ import { useParams } from "react-router-dom";
 export default function Grades() {
   const users = db.users;
   const grades = db.grades;
-  const enrollments = db.enrollments;  // Add enrollments data
+  const enrollments = db.enrollments;  
   const assignments = db.assignments;
   
   const { cid } = useParams(); 
   const filteredAssignments = assignments.filter((assignment) => assignment.course === cid);
 
-  // Get the list of student IDs enrolled in the current course
   const enrolledStudentIds = enrollments
     .filter(enrollment => enrollment.course === cid)
     .map(enrollment => enrollment.user);
 
-  // Filter users based on enrolled student IDs
   const filteredUsers = users.filter(user => enrolledStudentIds.includes(user._id));
 
   return (
