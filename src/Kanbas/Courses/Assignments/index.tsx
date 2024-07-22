@@ -1,3 +1,5 @@
+import { useParams } from "react-router";
+import * as db from "../../Database";
 import AControlButtons from './AControlButtons';
 import AssignmentControlButtons from './AssignmentControlButtons';
 import AssignmentControls from './AssignmentControls';
@@ -6,106 +8,55 @@ import { BsGripVertical } from 'react-icons/bs';
 import { GoTriangleDown } from "react-icons/go";
 
 export default function Assignments() {
-    return (
-      <div id="wd-assignments">
-  <AssignmentControls /><br /><br /><br /><br />
-  <ul id="wd-assignment" className="list-group rounded-0">
-    <li className="wd-module list-group-item p-0 mb-5 fs-5">
-      <div className="wd-title p-3 ps-2 bg-secondary">
-      <BsGripVertical className="me-2 fs-3" />
-      <GoTriangleDown className="me-2 fs-3" />
-      <b> ASSIGNMENTS </b>
-      <AssignmentControlButtons/>
+  const { cid } = useParams();  
+  const assignments = db.assignments; 
+  const filteredAssignments = assignments.filter((assignment: any) => assignment.course === cid);
 
-      </div>
-      <ul className="wd-assignments list-group rounded-0">
-  <li className="wd-assignment list-group-item p-3 ps-1 border-left-green">
-    <div className="row align-items-center">
-   
-      <div className="col-auto">
-        <BsGripVertical className="me-2 fs-3" />
-      </div>
-      
-      <div className="col-auto">
-        <span className="wd-fg-color-green">
-          <PiNotePencilDuotone className="me-2 fs-3" />
-        </span>
-      </div>
-      
-      <div className="col">
-        <a className="wd-assignment-link text-decoration-none text-dark" href="#/Kanbas/Courses/1234/Assignments/123">
-          <b> A1</b> <br />
-          <h6><span className="wd-fg-color-red"> Multiple Modules </span> | <b> Not available until</b> May 6 at 12:00am | Due May 13 at 11:59pm | 100 pts</h6>
-        </a>
-      </div>
-      
-      <div className="col-auto">
-        <AControlButtons/>
-      </div>
-    </div>
-  </li>
-
-
-  <li className="wd-assignment list-group-item p-3 ps-1 border-left-green">
-          <div className="row align-items-center">
-            <div className="col-auto">
-              <BsGripVertical className="me-2 fs-3" />
-            </div>
-
-            <div className="col-auto">
-              <span className="wd-fg-color-green">
-                <PiNotePencilDuotone className="me-2 fs-3" />
-              </span>
-            </div>
-
-            <div className="col">
-              <a className="wd-assignment-link text-decoration-none text-dark" href="#/Kanbas/Courses/1234/Assignments/123">
-                <b> A2</b> <br />
-                <h6><span className="wd-fg-color-red"> Multiple Modules </span> | <b> Not available until</b> May 13 at 12:00am | Due May 20 at 11:59pm | 100 pts</h6>
-              </a>
-            </div>
-
-            <div className="col-auto">
-              <AControlButtons />
-            </div>
+  return (
+    <div id="wd-assignments">
+      <AssignmentControls /><br /><br /><br /><br />
+      <ul id="wd-assignments" className="list-group rounded-0">
+        <li className="wd-module list-group-item p-0 mb-5 fs-5">
+          <div className="wd-title p-3 ps-2 bg-secondary">
+            <BsGripVertical className="me-2 fs-3" />
+            <GoTriangleDown className="me-2 fs-3" />
+            <b> ASSIGNMENTS </b>
+            <AssignmentControlButtons />
           </div>
-  </li>
-
-  <li className="wd-assignment list-group-item p-3 ps-1 border-left-green">
-          <div className="row align-items-center">
-            <div className="col-auto">
-              <BsGripVertical className="me-2 fs-3" />
-            </div>
-
-            <div className="col-auto">
-              <span className="wd-fg-color-green">
-                <PiNotePencilDuotone className="me-2 fs-3" />
-              </span>
-            </div>
-
-            <div className="col">
-              <a className="wd-assignment-link text-decoration-none text-dark" href="#/Kanbas/Courses/1234/Assignments/123">
-                <b> A3</b> <br />
-                <h6><span className="wd-fg-color-red"> Multiple Modules </span> | <b> Not available until</b> May 20 at 12:00am | Due May 27 at 11:59pm | 100 pts </h6>
-              </a>
-            </div>
-
-            <div className="col-auto">
-              <AControlButtons />
-            </div>
-          </div>
+          <ul className="wd-assignments list-group rounded-0">
+            {filteredAssignments.map((assignment: any) => (
+              <li key={assignment._id} className="wd-assignment list-group-item p-3 ps-1 border-left-green">
+                <div className="row align-items-center">
+                  <div className="col-auto">
+                    <BsGripVertical className="me-2 fs-3" />
+                  </div>
+                  <div className="col-auto">
+                    <span className="wd-fg-color-green">
+                      <PiNotePencilDuotone className="me-2 fs-3" />
+                    </span>
+                  </div>
+                  <div className="col">
+                    <a
+                      className="wd-assignment-link text-decoration-none text-dark"
+                      href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                    >
+                      <b> {assignment.title} </b> <br />
+                      <h6>
+                        <span className="wd-fg-color-red"> {assignment.modules || "Multiple Modules"} </span> | 
+                        <b> Not available until</b> {assignment.availableDate} | 
+                        Due {assignment.dueDate} | {assignment.points} pts
+                      </h6>
+                    </a>
+                  </div>
+                  <div className="col-auto">
+                    <AControlButtons />
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </li>
-
       </ul>
-    </li>
-
-
-  </ul>
-</div>
-
-  );}
-  
-  
-
-  
-  
+    </div>
+  );
+}

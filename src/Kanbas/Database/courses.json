@@ -1,0 +1,51 @@
+[
+    {
+       "_id": "CS1234",
+      "name": "CS1234 React JS",
+      "number": "CS1234",
+      "description": "Full Stack software developer",
+      "_img": "https://www.popwebdesign.net/popart_blog/wp-content/uploads/2018/03/reactjs.jpg"
+    },
+    {
+        "_id": "CS2345",
+        "name": "CS2345 Introduction to Modern Web Development",
+        "number": "CS2345",
+        "description": "Covers the basics of web development, including HTML, CSS, JavaScript, and an introduction to React.js",
+        "_img": "images/course6.jpg"
+      },
+      {
+        "_id": "CS3456",
+        "name": "CS3456 Advanced React.js",
+        "number": "CS3456",
+        "description": "Focuses on advanced concepts in React.js, including hooks, context API, and performance optimization",
+        "_img": "images/course1.jpg"
+      },
+      {
+        "_id": "CS4567",
+        "name": "CS4567 Full Stack Web Development with React and Node.js",
+        "number": "CS4567",
+        "description": "Combines front-end development with React.js and back-end development with Node.js, covering REST APIs, authentication, and database integration",
+        "_img": "images/course2.jpg"
+      },
+      {
+        "_id": "CS5678",
+        "name": "CS5678 React Native Development",
+        "number": "CS5678",
+        "description": "Explores mobile app development using React Native, a framework based on React.js for building native mobile applications",
+        "_img": "images/course3.jpg"
+      },
+      {
+        "_id": "CS6789",
+        "name": "CS6789 State Management in React.js",
+        "number": "CS6789",
+        "description": "Delves into state management solutions for React.js, such as Redux, MobX, and the Context API",
+        "_img": "images/course4.jpg"
+      },
+      {
+        "_id": "CS7890",
+        "name": "CS7890 Testing and Debugging in React.js",
+        "number": "CS7890",
+        "description": "Teaches techniques for testing and debugging React.js applications using tools like Jest, React Testing Library, and Chrome DevTools",
+        "_img": "images/course5.jpg"
+      }
+  ]
