@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 
 export default function CoursesNavigation() {
 const { cid } = useParams();
-  const course = courses.find((course) => course._id === cid);
+  //const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
-
 
   const links = [
      { label: "Home", path: `/Kanbas/Courses/${cid}/Home` },
