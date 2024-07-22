@@ -1,4 +1,4 @@
-import { courses } from "../../Database";
+//import { courses } from "../../Database";
 import "./index.css";
 import { useParams, useLocation} from "react-router";
 import { Link } from "react-router-dom";
