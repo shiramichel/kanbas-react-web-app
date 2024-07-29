@@ -1,15 +1,18 @@
 import { useParams } from "react-router";
-import * as db from "../../Database";
+//import * as db from "../../Database";
 import AControlButtons from './AControlButtons';
 import AssignmentControlButtons from './AssignmentControlButtons';
 import AssignmentControls from './AssignmentControls';
 import { PiNotePencilDuotone } from "react-icons/pi";
 import { BsGripVertical } from 'react-icons/bs';
 import { GoTriangleDown } from "react-icons/go";
+//import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 export default function Assignments() {
   const { cid } = useParams();  
-  const assignments = db.assignments; 
+  const { assignments } = useSelector((state: any) => (state.assignmentsReducer));
   const filteredAssignments = assignments.filter((assignment: any) => assignment.course === cid);
 
   return (
@@ -41,15 +44,15 @@ export default function Assignments() {
                       href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
                     >
                       <b> {assignment.title} </b> <br />
+                      </a>
                       <h6>
                         <span className="wd-fg-color-red"> {assignment.modules || "Multiple Modules"} </span> | 
                         <b> Not available until</b> {assignment.availableDate} | 
                         Due {assignment.dueDate} | {assignment.points} pts
                       </h6>
-                    </a>
                   </div>
                   <div className="col-auto">
-                    <AControlButtons />
+                    <AControlButtons assignId={assignment._id}/>
                   </div>
                 </div>
               </li>

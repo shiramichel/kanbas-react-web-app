@@ -1,27 +1,70 @@
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useParams, Link } from "react-router-dom";
-import * as db from "../../Database"; 
+//import * as db from "../../Database"; 
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams(); 
-  const assignment = db.assignments.find(a => a._id === aid);
+  const dispatch = useDispatch()
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+
+  const initializeAssignment = () => {
+    if (aid === "new") {
+        return {
+            _id: "new", 
+            title: "New Assignment", 
+            course: cid,
+            description: "Assignment Description",
+            points: 100,
+            dueDate: "2000-01-01",
+            availableDate: "2000-01-01",
+            availableToDate: "2000-01-01"
+        };
+    } else {
+        return assignments.find((a: any) => a.course === cid && a._id === aid) || {
+            _id: "",
+            title: "",
+            course: "",
+            description: "",
+            points: 0,
+            dueDate: "",
+            availableDate: "",
+            availableToDate: ""
+        };
+    }
+};
+
+const [assign, setAssign] = useState(initializeAssignment);
+
+const onSave = (assign: any) => {
+    if (aid === "new") {
+        dispatch(addAssignment(assign));
+    } else {
+        dispatch(updateAssignment(assign)); 
+    }
+}
 
   // Handle the case where no assignment is found
-  if (!assignment) return <p>No assignment found for this ID.</p>;
+  //if (!assignment) return <p>No assignment found for this ID.</p>;
 
   return (
     <div id="wd-edit-assignment">
       <div className="mb-3">
         <label htmlFor="input1" className="form-label">Assignment Name</label>
         <div className="form-control rectangle">
-          {assignment.title}
+        <input id="wd-name" className="form-control" value={assign.title}
+        onChange={(e) => setAssign({...assign, title: e.target.value})} />
         </div>
       </div>
 
       <div className="list-group">
         <div className="list-group-item">
-          The assignment is <span className="wd-fg-color-red">available online</span> <br /><br />
-          {assignment.description}
+        <textarea id="wd-description" className="form-control" rows={10} cols={40} 
+            value={assign.description}
+            onChange={(e) => setAssign({...assign, description: e.target.value})}/>
         </div>
       </div>
 
@@ -36,7 +79,8 @@ export default function AssignmentEditor() {
               </td>
               <td>
                 <div className="form-control rectangle">
-                  {assignment.points}
+                <input id="wd-points" className="form-control" value={assign.points} type="number"
+            onChange={(e) => setAssign({...assign, points: parseInt(e.target.value)})}/>
                 </div>
               </td>
             </tr>
@@ -121,7 +165,8 @@ export default function AssignmentEditor() {
                     <div className="mb-3">
   <label htmlFor="inputAssignDate" className="form-label"><b>Due</b></label>
   <div className="form-control rectangle d-flex justify-content-between align-items-center">
-    <span>{assignment.dueDate}</span>
+    <span><input type="date" id="wd-available-from" className="form-control" value={assign.availableDate} 
+                        onChange={(e) => setAssign({...assign, availableDate: e.target.value})}/></span>
     <FaRegCalendarAlt />
   </div>
 </div>
@@ -131,7 +176,8 @@ export default function AssignmentEditor() {
                       <div className="col">
                         <label htmlFor="inputAssignAvailable" className="form-label"><b>Available from</b></label>
                         <div className="form-control rectangle d-flex justify-content-between align-items-center">
-    <span>{assignment.availableDate}</span>
+    <span><input type="date" id="wd-available-until" className="form-control" value={assign.availableToDate}
+                        onChange={(e) => setAssign({...assign, availableToDate: e.target.value})} /></span>
     <FaRegCalendarAlt />
   </div>
                       </div>
@@ -156,9 +202,9 @@ export default function AssignmentEditor() {
         <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2" role="button">
           Cancel
         </Link>
-        <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger" role="button">
-          Save
-        </Link>
+        <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
+                <button id="wd-save" type="button" className="btn btn-danger"
+                onClick={() => onSave(assign)}>Save</button></Link>
       </div>
     </div>
   );

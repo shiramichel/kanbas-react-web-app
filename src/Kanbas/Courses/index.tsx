@@ -3,16 +3,16 @@ import {Route, Routes, useParams, useLocation } from "react-router";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
-import AssignmentEditor from "./Assignments/Editor";
+import Editor from "./Assignments/Editor";
 import { FaAlignJustify } from 'react-icons/fa';
 import Grades from "./Grades";
-import { courses } from "../Database";
+//import { courses } from "../Database";
 
-export default function Courses() {
+
+export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
-
 
   return (
     <div id="wd-courses">
@@ -30,7 +30,7 @@ export default function Courses() {
             <Route path="Home" element={<Home />} />
             <Route path="Modules" element={<Modules />} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:aid/*" element={<AssignmentEditor />} />
+            <Route path="Assignments/:aid" element={<Editor />} />
             <Route path="Grades" element={<Grades />} />
           </Routes>
         </div>

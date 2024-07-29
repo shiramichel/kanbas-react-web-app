@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaPlus } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 export default function AssignmentControls() {
   return (
@@ -25,7 +26,7 @@ export default function AssignmentControls() {
 
   <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger d-flex align-items-center">
     <FaPlus className="me-2" />
-    <span className="d-none d-sm-block">Assignment</span> {/* Hide on small screens */}
+    <span className="d-none d-sm-block"><Link to={`new`}><button id="wd-add-assignment" className="btn btn-lg btn-danger">Assignment</button></Link></span> {/* Hide on small screens */}
   </button>
 </div>
     </div>
