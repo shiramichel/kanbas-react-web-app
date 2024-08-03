@@ -4,11 +4,15 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addAssignment, updateAssignment } from "./reducer";
+//import { addAssignment, updateAssignment } from "./reducer";
+import * as client from "./client"; 
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams(); 
   const dispatch = useDispatch()
+
+
+
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
 
   const initializeAssignment = () => {
@@ -39,12 +43,13 @@ export default function AssignmentEditor() {
 
 const [assign, setAssign] = useState(initializeAssignment);
 
-const onSave = (assign: any) => {
-    if (aid === "new") {
-        dispatch(addAssignment(assign));
-    } else {
-        dispatch(updateAssignment(assign)); 
-    }
+const onSave = (a: any) => {
+  if (aid === "new") {
+      const withId = { ...a, _id: new Date().getTime().toString()}; 
+      client.createAssignment(cid, withId); 
+  } else {
+      client.updateAssignment(assign); 
+  }
 }
 
   // Handle the case where no assignment is found

@@ -7,13 +7,28 @@ import { PiNotePencilDuotone } from "react-icons/pi";
 import { BsGripVertical } from 'react-icons/bs';
 import { GoTriangleDown } from "react-icons/go";
 //import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import * as client from "./client"; 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setAssignments } from "./reducer";
 
 
 export default function Assignments() {
   const { cid } = useParams();  
   const { assignments } = useSelector((state: any) => (state.assignmentsReducer));
   const filteredAssignments = assignments.filter((assignment: any) => assignment.course === cid);
+  const dispatch = useDispatch(); 
+
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    //console.log(assignments[0].name); 
+    dispatch(setAssignments(assignments)); 
+  };
+  useEffect(() => {
+    fetchAssignments(); 
+  }, []); 
+
+  //console.log(assignments); 
 
   return (
     <div id="wd-assignments">

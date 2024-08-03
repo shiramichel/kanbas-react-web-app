@@ -4,20 +4,30 @@ import { FaTrash } from "react-icons/fa";
 import { deleteAssignment } from "./reducer";
 import DeleteDialog from "./DeleteDialog";
 import { useDispatch } from "react-redux";
+import * as client from "./client";
 
-export default function AControlButtons(assignId : any) {
+interface AControlButtonsProps {
+  assignId: string;
+}
+
+export default function AControlButtons({ assignId }: AControlButtonsProps) {
   const dispatch = useDispatch(); 
 
-  const deleteButton = () => {
-    dispatch(deleteAssignment(assignId.assignId));
-  }
+  const removeAssignment = async () => {
+    await client.deleteAssignment(assignId);
+    dispatch(deleteAssignment(assignId));
+  };
 
   return (
     <div className="float-end">
-      <FaTrash className="text-danger me-2 mb-1" 
-      data-bs-toggle="modal" data-bs-target="#wd-delete-assignment-dialog"/>
-      <DeleteDialog dialogTitle="Delete Assignment?" deleteFunc={deleteButton} />
+      <FaTrash
+        className="text-danger me-2 mb-1"
+        data-bs-toggle="modal"
+        data-bs-target="#wd-delete-assignment-dialog"
+      />
+      <DeleteDialog dialogTitle="Delete Assignment?" deleteFunc={removeAssignment} />
       <GreenCheckmark />
       <IoEllipsisVertical className="fs-4" />
     </div>
-);}
+  );
+}
