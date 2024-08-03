@@ -19,14 +19,16 @@ export default function Assignments() {
   const filteredAssignments = assignments.filter((assignment: any) => assignment.course === cid);
   const dispatch = useDispatch(); 
 
+  useEffect(() => {
+    fetchAssignments(); 
+  }, []); 
+
   const fetchAssignments = async () => {
     const assignments = await client.findAssignmentsForCourse(cid as string);
     //console.log(assignments[0].name); 
     dispatch(setAssignments(assignments)); 
   };
-  useEffect(() => {
-    fetchAssignments(); 
-  }, []); 
+
 
   //console.log(assignments); 
 

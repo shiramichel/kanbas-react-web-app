@@ -21,20 +21,21 @@ export default function Modules() {
     const newModule = await client.createModule(cid as string, module);
     dispatch(addModule(newModule));
   };
+  useEffect(() => {
+    fetchModules();
+  }, []);
 
   const fetchModules = async () => {
     const modules = await client.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
   };
-  useEffect(() => {
-    fetchModules();
-  }, []);
+
   const removeModule = async (moduleId: string) => {
     await client.deleteModule(moduleId);
     dispatch(deleteModule(moduleId));
   };
   const saveModule = async (module: any) => {
-    const status = await client.updateModule(module);
+    //const status = await client.updateModule(module);
     dispatch(updateModule(module));
   };
 
