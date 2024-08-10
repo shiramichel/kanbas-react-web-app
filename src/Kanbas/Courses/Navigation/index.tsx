@@ -17,10 +17,12 @@ const { cid } = useParams();
      { label: "Assignments", path: `/Kanbas/Courses/${cid}/Assignments` },
      { label: "Quizzes", path: `/Kanbas/Courses/${cid}/Quizzes` },
      { label: "Grades", path: `/Kanbas/Courses/${cid}/Grades` },
+     { label: "People", path: `/Kanbas/Courses/${cid}/People` },
+     
   ];
 
   return (
-   <div id="wd-courses-navigation" className="list-group fs-5 rounded-0">
+   <div id="wd-courses-dao.navigation" className="list-group fs-5 rounded-0">
       {links.map((link) => (
          <Link
             key={link.path}

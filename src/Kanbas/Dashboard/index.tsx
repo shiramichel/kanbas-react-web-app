@@ -9,6 +9,8 @@ export default function Dashboard(
     addNewCourse: () => void; deleteCourse: (course: any) => void;
     updateCourse: () => void; })
    {
+    
+    
     return (
   
     <div id="wd-dashboard">
