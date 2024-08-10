@@ -9,7 +9,7 @@ export default function PeopleTable() {
     const {cid} = useParams();
   const [users, setUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
-  const [name, setName] = useState("");
+  //const [name, setName] = useState("");
   const createUser = async () => {
     const user = await client.createUser({
       firstName: "New",
@@ -23,7 +23,7 @@ export default function PeopleTable() {
   };
 
   const filterUsersByName = async (name: string) => {
-    setName(name);
+    //setName(name);
     if (name) {
       const users = await client.findUsersByPartialName(name);
       setUsers(users);
