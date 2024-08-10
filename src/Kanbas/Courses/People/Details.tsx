@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router";
@@ -8,8 +8,7 @@ import React from "react";
 import { FaPencil } from "react-icons/fa6";
 import { FaCheck, FaUserCircle } from "react-icons/fa";
 
-export default function PeopleDetails({ fetchUsers }:
-    { fetchUsers: () => void; }) {
+export default function PeopleDetails({ fetchUsers }:{ fetchUsers: () => void; }) {
      const navigate = useNavigate();
      const deleteUser = async (uid: string) => {
        await client.deleteUser(uid);
@@ -21,6 +20,7 @@ export default function PeopleDetails({ fetchUsers }:
     const [email, setEmail] = useState(""); 
     const [role, setRole] = useState("");
   const [editing, setEditing] = useState(false);
+
   const saveUser = async () => {
     const [firstName, lastName] = name.split(" ");
     const updatedUser = { ...user, firstName, lastName, email, role };
@@ -31,9 +31,9 @@ export default function PeopleDetails({ fetchUsers }:
     navigate(`/Kanbas/Courses/${cid}/People`);
   };
 
-   
   const { uid, cid } = useParams();
   const [user, setUser] = useState<any>({});
+/*
   const fetchUser = async () => {
     if (!uid) return;
     const user = await client.findUserById(uid);
@@ -41,8 +41,19 @@ export default function PeopleDetails({ fetchUsers }:
   };
   useEffect(() => {
     if (uid) fetchUser();
-  }, [uid, fetchUser]);
+  }, [uid]);
+*/
+const fetchUser = useCallback(async () => {
+  if (!uid) return;
+  const user = await client.findUserById(uid);
+  setUser(user);
+}, [uid]);
+
+useEffect(() => {
+  if (uid) fetchUser();
+}, [uid, fetchUser]);
   if (!uid) return null;
+  
   return (
     <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
       <Link to={`/Kanbas/Courses/${cid}/People`} className="btn position-fixed end-0 top-0 wd-close-details">
