@@ -22,7 +22,7 @@ export default function Profile() {
     navigate("/Kanbas/Account/Signin");
   };
 
-  useEffect(() => { fetchProfile(); }, []);
+  useEffect(() => { fetchProfile(); }, [fetchProfile]);
   return (
     <div className="wd-profile-screen">
       <h1>Profile</h1>
