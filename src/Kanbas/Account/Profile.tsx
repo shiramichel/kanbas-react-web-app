@@ -26,7 +26,7 @@ export default function Profile() {
     };
 
     fetchProfile();
-  }, [navigate]);
+  }, []);
   /*
   const fetchProfile = async () => {
     try {
