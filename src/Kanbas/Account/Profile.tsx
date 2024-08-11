@@ -33,7 +33,7 @@ export default function Profile() {
     }
   }, [navigate]);
   
-  useEffect(() => { fetchProfile(); }, []);
+  useEffect(() => { fetchProfile(); }, [fetchProfile]);
   
   return (
     <div className="wd-profile-screen">
