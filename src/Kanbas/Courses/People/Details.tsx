@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+//import { useCallback } from "react";
 //import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import * as client from "./client";
-import React from "react";
+//import React from "react";
 import { FaPencil } from "react-icons/fa6";
 import { FaCheck, FaUserCircle } from "react-icons/fa";
 
@@ -33,7 +34,8 @@ export default function PeopleDetails({ fetchUsers }:{ fetchUsers: () => void; }
 
   const { uid, cid } = useParams();
   const [user, setUser] = useState<any>({});
-/*
+
+  /*
   const fetchUser = async () => {
     if (!uid) return;
     const user = await client.findUserById(uid);
@@ -43,6 +45,17 @@ export default function PeopleDetails({ fetchUsers }:{ fetchUsers: () => void; }
     if (uid) fetchUser();
   }, [uid]);
 */
+useEffect(() => {
+  const fetchUser = async () => {
+    if (!uid) return;
+    const user = await client.findUserById(uid);
+    setUser(user);
+  };
+
+  if (uid) fetchUser();
+}, [uid]);
+
+/*
 const fetchUser = useCallback(async () => {
   if (!uid) return;
   const user = await client.findUserById(uid);
@@ -52,6 +65,7 @@ const fetchUser = useCallback(async () => {
 useEffect(() => {
   if (uid) fetchUser();
 }, [uid, fetchUser]);
+*/
   if (!uid) return null;
   
   return (
