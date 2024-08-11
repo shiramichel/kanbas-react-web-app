@@ -8,25 +8,26 @@ import { setCurrentUser } from "./reducer";
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+
+  const fetchProfile = async () => {
+    try {
+        const account = await client.profile();
+        setProfile(account);
+    } catch (err: any) {
+        navigate("/Kanbas/Account/Signin");
+    }
+
+  };
   const signout = async () => {
+    console.log('signing out'); 
     await client.signout();
     dispatch(setCurrentUser(null));
     navigate("/Kanbas/Account/Signin");
+    //console.log('navigated'); 
   };
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const account = await client.profile();
-        setProfile(account);
-      } catch (err: any) {
-        navigate("/Kanbas/Account/Signin");
-      }
-    };
-
-    fetchProfile();
-  }, []);
+  
+  useEffect(() => { fetchProfile(); }, []);
   /*
   const fetchProfile = async () => {
     try {
