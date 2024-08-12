@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 
 export default function Signup() {
-    const [error, setError] = useState("");
+  const [error, setError] = useState("");
   const [user, setUser] = useState<any>({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
