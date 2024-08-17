@@ -20,6 +20,10 @@ export const profile = async () => {
     const response = await axiosWithCredentials.post(`${USERS_API}/signout`);
     return response.data;
   };
+  export const updateUser = async (user: any) => {
+    const response = await axiosWithCredentials.put(`${USERS_API}/${user._id}`, user);
+    return response.data;
+};
   
     
   
