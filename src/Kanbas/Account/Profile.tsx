@@ -1,5 +1,5 @@
 import * as client from "./client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -7,7 +7,6 @@ export default function Profile() {
 
     const navigate = useNavigate();
     
-    // create a profile state variables 
     const [profile, setProfile] = useState({ 
         username: "", 
         password: "", 
@@ -18,37 +17,32 @@ export default function Profile() {
         role: "" 
     });
 
-    // get profile information 
-    const fetchProfile = async () => {
+    const fetchProfile = useCallback(async () => {
         const account = await client.profile();
-        console.log("Account: ", account);
-
-        // Extract the date part from the ISO string
         const dobDateString = account.dob ? new Date(account.dob).toISOString().split('T')[0] : "";
-
-        // Update the profile with the formatted date
+      
         setProfile({
-            ...account,
-            dob: dobDateString, 
-            role: account.role,
+          ...account,
+          dob: dobDateString, 
+          role: account.role,
         });
+      }, []);
+      
+      useEffect(() => {
+        fetchProfile();
+      }, [fetchProfile]);
 
-        console.log("Profile: ", profile);
-    };
-
-    // save an updated user profile by sending profile data to server
     const save = async () => {
         console.log("Profile Save: ", profile);
         await client.updateUser(profile);
     };
     
-    // sign out of current profile
     const signout = async () => {
         await client.signout();
         navigate("/Kanbas/Account/Signin");
     };
     
-    useEffect(() => {fetchProfile();}, []);
+    //useEffect(() => {fetchProfile();}, []);
 
     return (
         <div className="container">
