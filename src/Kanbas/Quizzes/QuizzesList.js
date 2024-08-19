@@ -125,7 +125,9 @@ export default function QuizListScreen({ userRole }) {
 
       {/* Conditional rendering: Show message if quizzes list is empty */}
       {quizzes.length === 0 ? (
-        <p className="no-quizzes-message">No quizzes available. Click the "+ Quiz" button to add a new quiz.</p>
+        userRole === 'FACULTY' && (
+          <p className="no-quizzes-message">No quizzes available. Click the "+ Quiz" button to add a new quiz.</p>
+        )
       ) : (
         <ul className="wd-quiz list-group rounded-0">
           {quizzes.map((quiz) => (
