@@ -12,8 +12,21 @@ import Quizzes from "./Quizzes";
 import QuizDetails from "./Quizzes/Details";
 import Quizzesn from "./Quizzes/DetailsAndQuestions";
 
+<<<<<<< HEAD
 
 export default function Courses({ courses }: { courses: any[]; }) {
+=======
+// Mon
+import QuizListScreen from "../Quizzes/QuizzesList";
+import QuizDetailsScreen from "../Quizzes/QuizDetails";
+import QuizEditorScreen from "../Quizzes/QuizEditor";
+import QuizPreviewScreen from "../Quizzes/QuizPreview";
+import StartQuizScreen from "../Quizzes/StartQuiz";
+import QuizResultsScreen from "../Quizzes/QuizResults";
+
+
+export default function Courses({ courses, userRole, userLoginId }: { courses: any[]; userRole: any; userLoginId: any }) {
+>>>>>>> 99ca15e (Initial commit)
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
@@ -36,8 +49,22 @@ export default function Courses({ courses }: { courses: any[]; }) {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:aid" element={<Editor />} />
             <Route path="Grades" element={<Grades />} />
+<<<<<<< HEAD
             <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Quizzes/:qid" element={<QuizDetails />} />
+=======
+            
+            <Route path="Quizzes/:qid" element={<QuizDetails />} />
+
+            // Mon
+            <Route path="Quizzes" element={<QuizListScreen userRole={userRole} />} />
+            <Route path="Quizzes/:quizId/Edit" element={<QuizEditorScreen userRole={userRole} />} />
+            <Route path="Quizzes/:quizId/Detail" element={<QuizDetailsScreen userRole={userRole} />} />
+            <Route path="Quizzes/:quizId/Preview" element={<QuizPreviewScreen userRole={userRole} />} />
+            <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuizScreen userRole={userRole} userLoginId={userLoginId}/>} />
+            <Route path="Quizzes/:quizId/Results" element={<QuizResultsScreen userRole={userRole} userLoginId={userLoginId}/>} />
+
+>>>>>>> 99ca15e (Initial commit)
             <Route path="People" element={<PeopleTable />} />
             <Route path="People/:uid" element={<PeopleTable />} />
             <Route path="QuizTestN/*" element={<Quizzesn />} />
@@ -46,4 +73,10 @@ export default function Courses({ courses }: { courses: any[]; }) {
       </div>
     </div>
   );
+<<<<<<< HEAD
 };
+=======
+};
+
+<Route path="Quizzes" element={<Quizzes />} />
+>>>>>>> 99ca15e (Initial commit)

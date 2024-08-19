@@ -12,6 +12,13 @@ import ProtectedRoute from "./ProtectedRoute";
 //import Session from "./Account/Session";
 import Enroll from "./Enroll";
 
+<<<<<<< HEAD
+=======
+// Mon
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+
+>>>>>>> 99ca15e (Initial commit)
 export default function Kanbas() {
 
   const [courses, setCourses] = useState<any[]>([]);
@@ -24,8 +31,15 @@ export default function Kanbas() {
   }, []);
 
 
+<<<<<<< HEAD
   const [course, setCourse] = useState<any>({
     _id: "1234", name: "New Course", number: "New Number",
+=======
+  const generateUniqueCourseNumber = () => `Course-${Math.random().toString(36).substr(2, 9)}`;
+  
+  const [course, setCourse] = useState<any>({
+    _id: "1234", name: "New Course", number: generateUniqueCourseNumber(),
+>>>>>>> 99ca15e (Initial commit)
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
     _img: "images/reactjs.jpg"
   });
@@ -54,6 +68,13 @@ export default function Kanbas() {
     );
   };
 
+<<<<<<< HEAD
+=======
+    // Mon
+    const userRole = useSelector((state: RootState) => state.accountReducer.userRole);
+    const userLoginId = useSelector((state: RootState) => state.accountReducer.userLoginId);
+  
+>>>>>>> 99ca15e (Initial commit)
 
     return (
       <Provider store={store}>
@@ -73,7 +94,11 @@ export default function Kanbas() {
                 updateCourse={updateCourse} />
 </ProtectedRoute>} />
           <Route path="Enroll" element={<Enroll courses={courses} />} />
+<<<<<<< HEAD
             <Route path="Courses/:cid/*" element={<ProtectedRoute><Courses courses={courses} /></ProtectedRoute> } />
+=======
+            <Route path="Courses/:cid/*" element={<ProtectedRoute><Courses courses={courses} userRole={userRole} userLoginId={userLoginId} /></ProtectedRoute> } />
+>>>>>>> 99ca15e (Initial commit)
             <Route path="Calendar" element={<h1>Calendar</h1>} />
             <Route path="Inbox" element={<h1>Inbox</h1>} />
 

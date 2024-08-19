@@ -18,4 +18,12 @@ const store = configureStore({
     quizQuestionsReducer,
   },
 });
+<<<<<<< HEAD
+=======
+
+// Mon
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+>>>>>>> 99ca15e (Initial commit)
 export default store;

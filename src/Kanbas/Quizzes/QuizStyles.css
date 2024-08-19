@@ -1,0 +1,126 @@
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.quiz-instructions {
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #ddd;
+}
+
+.question-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.question-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.question-box p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.option-label input {
+    margin-right: 10px;
+}
+
+.quiz-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-quiz-btn {
+    background-color: #d9534f; /* Red button */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-quiz-btn:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
+.edit-button,
+.preview-button {
+    background-color: #d3d3d3; /* Light grey button */
+    color: #333;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover,
+.preview-button:hover {
+    background-color: #bbb; /* Darker grey on hover */
+}
+
+.quiz-status {
+    display: flex;
+    align-items: center;
+}
+
+.icon-published {
+    color: green;
+    cursor: pointer;
+}
+
+.icon-unpublished {
+    color: red;
+    cursor: pointer;
+}
+
+.no-quizzes-message {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
+
+.submit-quiz-btn-g {
+    background-color:  green; 
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 30px;
+}

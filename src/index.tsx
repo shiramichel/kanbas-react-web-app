@@ -6,12 +6,25 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+<<<<<<< HEAD
+=======
+//Mon Shan
+import { Provider } from 'react-redux';
+import store from './Kanbas/store'; // Import the Redux store
+
+>>>>>>> 99ca15e (Initial commit)
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+<<<<<<< HEAD
     <App />
+=======
+    <Provider store={store}>  {/* Wrap the App component with the Provider */}
+      <App />
+    </Provider>
+>>>>>>> 99ca15e (Initial commit)
   </React.StrictMode>
 );
 
