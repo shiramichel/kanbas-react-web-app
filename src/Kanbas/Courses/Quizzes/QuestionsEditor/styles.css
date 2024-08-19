@@ -1,0 +1,32 @@
+.ql-editor {
+  font-size: 16px;
+}
+
+.ql-container {
+  font-size: 16px;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+  font-size: 1.17em;
+}
+
+.radio-hide {
+    opacity: 0;
+}
+
+.label-width {
+    width: 75px;
+}
+
+.label-nowrap {
+    white-space: nowrap;
+}
+
+#wysiwyg-editor {
+  min-height: 200px;
+}
+
+#blocks {
+  text-decoration: none;
+  color: black;
+}
