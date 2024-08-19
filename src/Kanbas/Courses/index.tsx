@@ -25,7 +25,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
       </h2>
       <hr />
       <div className="d-flex">
-        <div className="d-none d-xl-block flex-shrink-0">
+        <div className="d-none d-md-block flex-shrink-0 me-2">
           <CoursesNavigation />
         </div>
         <div className="flex-grow-1">

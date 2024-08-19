@@ -22,13 +22,13 @@ const { cid } = useParams();
   ];
 
   return (
-   <div id="wd-courses-dao.navigation" className="list-group fs-5 rounded-0">
+   <div id="wd-courses-navigation" className="list-group fs-5 rounded-0">
       {links.map((link) => (
          <Link
             key={link.path}
             to={link.path}
             id={`wd-course-${link.label.toLowerCase()}-link`}
-            className={`list-group-item border border-0 ${pathname.includes(link.path) ? "active text-danger" : "text-danger"}`}
+            className={`list-group-item border border-0 ${pathname.includes(link.path) ? "active" : "text-danger"}`}
          >
             {link.label}
          </Link>
