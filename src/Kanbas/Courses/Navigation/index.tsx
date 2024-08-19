@@ -18,7 +18,7 @@ const { cid } = useParams();
      { label: "Quizzes", path: `/Kanbas/Courses/${cid}/Quizzes` },
      { label: "Grades", path: `/Kanbas/Courses/${cid}/Grades` },
      { label: "People", path: `/Kanbas/Courses/${cid}/People` },
-     
+     { label: "QuizTestN", path: `/Kanbas/Courses/${cid}/QuizTestN` },
   ];
 
   return (
