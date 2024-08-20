@@ -7,7 +7,7 @@ export default function Multiplechoice(
   { question, setQuestion }:
     { question: any; setQuestion: any; }
 ) {
-  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const answers = question.options;
 
   const addAnswer = () => {
@@ -29,7 +29,7 @@ export default function Multiplechoice(
   const removeAnswer = (id: any) => {
     let newAnswers = answers.filter((a: any) => a._id !== id);
     if (newAnswers.length === 1) {
-      setShowModal(true);
+      setErrorMessage("Unable to delete option. At least two options are required.");
       return;
     }
     // if deleting correct answer, set another to be correct
@@ -43,6 +43,7 @@ export default function Multiplechoice(
 
   return (
     <div id="mc-editor">
+      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       {answers.map((answer: any) => (
         <div className="d-flex flex-row pb-3 align-items-center" key={answer._id}>
           {/* icon to choose correct answer*/}
@@ -96,24 +97,6 @@ export default function Multiplechoice(
         <button className="btn btn-link text-danger text-decoration-none" type="button" onClick={() => addAnswer()}>
           + Add Another Answer
         </button>
-      </div>
-
-      {/* modal for delete warning */}
-      <div className={`modal fade ${showModal ? 'show d-block' : ''}`} role="dialog">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Error</h5>
-              <button type="button" className="btn-close" onClick={() => setShowModal(false)} aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p>Unable to delete question - must have at least 2 options.</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={() => setShowModal(false)}>OK</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
