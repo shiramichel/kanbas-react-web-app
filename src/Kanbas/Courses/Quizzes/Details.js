@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import * as client from "./client";
 import "./QuizDetailsScreen.css";
+import Quizzes2 from './DetailsAndQuestions/index.tsx';
+import { Route, Routes } from "react-router-dom";
 
 export default function Details( { userRole }) {  
   const [quiz, setQuiz] = useState(null);
@@ -47,6 +49,7 @@ export default function Details( { userRole }) {
               <>
                 <button className="btn light-grey-button" onClick={handlePreview}>Preview</button>
                 <button className="btn light-grey-button" onClick={handleEdit}>Edit</button>
+
               </>
             )}
             {userRole === 'STUDENT' && (

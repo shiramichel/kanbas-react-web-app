@@ -75,7 +75,7 @@ const quizQuestionsSlice = createSlice({
             } else {
                 
             state.rquizQuestionList= [...state.rquizQuestionList,newQuestion] as any;
-            console.log("reducer updated list:",state.rquizQuestionList);
+            //console.log("reducer updated list:",state.rquizQuestionList);
             }
         },
         removeQuestions:(state,{payload:quizID}) => {

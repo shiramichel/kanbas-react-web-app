@@ -12,6 +12,7 @@ import PeopleTable from "./People/Table";
 // QUIZ SCREEN IMPORTS
 import Quizzes from "./Quizzes";
 import QuizDetails from "./Quizzes/Details";
+import Quizzes2 from "./Quizzes/DetailsAndQuestions/index";
 // import QuizEditor from "./Quizzes/DetailsAndQuestions"; 
 // import QuizPreview from "./Quizzes/Preview";
 // import StartQuiz from "./Quizzes/Start";
@@ -45,6 +46,8 @@ export default function Courses({ courses, userRole, userLoginId }: { courses: a
             {/* QUIZ PATHS */}
             <Route path="Quizzes" element={<Quizzes userRole={userRole}/>} />
             <Route path="Quizzes/:quizId/Detail" element={<QuizDetails userRole={userRole}/>} />
+            {/*<Route path={`/Kanbas/Courses/:cid/Quizzes/:quizId/Edit/*`} element={<Quizzes2 />}/>*/}
+            <Route path={`Quizzes/:quizId/Edit//*`} element={<Quizzes2 />}/>
             {/* <Route path="/Quizzes/:quizId/Edit" element={<QuizEditor />} /> */}
             {/* <Route path="Quizzes/:quizId/Preview" element={<QuizPreviewScreen userRole={userRole} />} /> */}
             {/* <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuizScreen userRole={userRole} userLoginId={userLoginId}/>} /> */}

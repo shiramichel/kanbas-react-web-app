@@ -35,8 +35,10 @@ export default function QuestionEditor({pointval,setPointval,}:
     const [questionType,setQuestionType] = useState("");
 
     const test = useParams();
-    //const qid = test.qid;
-    const qid = "testquizid123";
+    console.log("test value in question adder:",test);
+    const qid = test.quizId;
+    const cid = test.cid;
+    //const qid = "testquizid123";
 
     const updateQuestions= async () => {
         setQuestionList(prevList =>
@@ -200,6 +202,10 @@ export default function QuestionEditor({pointval,setPointval,}:
                                     }
                                     }>
                                     Edit
+                                </button>
+
+                                <button className="btn btn-primary m-1">
+                                    Advanced
                                 </button>
                             </div>
                         )

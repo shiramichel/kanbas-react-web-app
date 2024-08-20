@@ -64,7 +64,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             }   
             )
         )
-        console.log("new rdetails:",rquizDetails);
+        //console.log("new rdetails:",rquizDetails);
     }
 
     const updateQuizDetails = async () => {

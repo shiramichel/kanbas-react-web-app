@@ -26,20 +26,20 @@ export default function QuizEditor(){
         const question_list = await client.findallQuestions();
         const questionsForQuiz = await question_list.filter((q:any)=>q.quiz ===qid);
         //let pointcounter=0;
-        await console.log("question list in fetch:",question_list)
-        await console.log("question filtered list in fetch:",questionsForQuiz)
+        //await console.log("question list in fetch:",question_list)
+        //await console.log("question filtered list in fetch:",questionsForQuiz)
         let prevPointval= 0;
         dispatch(questionsEmptyList());
         questionsForQuiz.forEach((q:any) => {
-            console.log("q val:",q);
+            //console.log("q val:",q);
             dispatch(questionsloadFromDB(q));
             //prevPointval= pointval;
             
             //setPointval( prevPointval + q.points);
             prevPointval += q.points;
-            console.log("previous point val:",prevPointval);
-            console.log(" point val:",pointval);
-            console.log("q.p val:",q.points)
+            //console.log("previous point val:",prevPointval);
+            //console.log(" point val:",pointval);
+            //console.log("q.p val:",q.points)
         })
         setPointval(prevPointval);
         //setPointval(pointcounter);
