@@ -85,5 +85,5 @@ const quizQuestionsSlice = createSlice({
 
 });
 
-export const {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList} = quizQuestionsSlice.actions;
+export const {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList,questionEmptyJustLidt,copyOverQuestionList} = quizQuestionsSlice.actions;
 export default quizQuestionsSlice.reducer;

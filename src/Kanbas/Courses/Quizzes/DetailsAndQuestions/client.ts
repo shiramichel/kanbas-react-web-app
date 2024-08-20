@@ -5,7 +5,7 @@ const QUIZQUESTION_API2 = `${REMOTE_SERVER}/api/quizQuestions`;
 const QUIZQUESTION_API = `${REMOTE_SERVER}/api/questions`;
 
 export const findQuizDetails = async () =>{
-    console.log("sendingout question  request:");
+    console.log("sendingout quiz detail request request:");
     const response =await axios.get(`${QUIZDETAIL_API}`);
     return response.data;
 };

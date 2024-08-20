@@ -9,8 +9,9 @@ import {raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList} fro
 import {setQuizDetails,updateQuizDetail} from "./reducer"
 export default function QuizEditor(){
     const test = useParams();
-    //const qid = test.qid;
-    const qid = "testquizid123";
+    //console.log("Quiz main editor! test val",test);
+    const qid = test.quizId;
+    //const qid = "testquizid123";
     
     const [pointval, setPointval] =useState(0);
     const [questionList,setQuestionList] = useState<any[]>([])
@@ -26,6 +27,7 @@ export default function QuizEditor(){
         const question_list = await client.findallQuestions();
         const questionsForQuiz = await question_list.filter((q:any)=>q.quiz ===qid);
         //let pointcounter=0;
+        //console.log("Searching CID val:",qid);
         //await console.log("question list in fetch:",question_list)
         //await console.log("question filtered list in fetch:",questionsForQuiz)
         let prevPointval= 0;
@@ -50,7 +52,8 @@ export default function QuizEditor(){
 
     const fetchDetails = async () =>{
         const details_list = await client.findQuizDetails();
-        const details = details_list.find((detail:any) => detail.quizID === qid);
+        console.log("detail list:",details_list);
+        const details = details_list.find((detail:any) => detail._id === qid);
 
         dispatch(setQuizDetails(details));
     };
@@ -58,7 +61,7 @@ export default function QuizEditor(){
     //const pointval = 0;]
     
     useEffect(() => {
-        console.log("quiz editor questions:", rquizQuestionList);
+        //console.log("quiz editor questions:", rquizQuestionList);
         //console.log("Updated rquizQuestionList:", rquizQuestionList);
         //startLoad();
         //setEditing("temp1");
@@ -69,7 +72,7 @@ export default function QuizEditor(){
         fetchQuestions();
         //const temp =pointval/2;
         //setPointval(temp);
-        //fetchDetails();
+        fetchDetails();
       }, []);
     return(
         <div>
