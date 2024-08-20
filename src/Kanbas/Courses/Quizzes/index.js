@@ -106,6 +106,7 @@ export default function QuizListScreen( { userRole }) {
         <div className="d-flex align-items-center">
           <div className="me-2 fs-3" />
           QUIZZES
+
         </div>
       </div>
 
