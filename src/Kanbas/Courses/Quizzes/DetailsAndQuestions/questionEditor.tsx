@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as client from "./client";
-import {raddQuestion,removeQuestions} from "./questionsReducer";
+import {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList} from "./questionsReducer";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function QuestionEditor({pointval,setPointval,}:
@@ -16,12 +16,13 @@ export default function QuestionEditor({pointval,setPointval,}:
 ){
 
     const {rquizQuestionList} = useSelector((state:any) => state.quizQuestionsReducer);
+    const {rquizQuestionListHolder} = useSelector((state:any) => state.quizQuestionsReducer);
     const dispatch = useDispatch();
 
     const questionTypeMap: { [key: string]: string } = {
-        TRUEORFALSE :"True or False",
-        MULTIPLE: "Multiple choise question",
-        FillIN: "Fill in Multiple Blanks"
+        TF :"True or False",
+        MC: "Multiple choise question",
+        'Fill-in': "Fill in Multiple Blanks"
     };
 
     const [question,setQuestion] = useState();
@@ -40,7 +41,10 @@ export default function QuestionEditor({pointval,setPointval,}:
     const updateQuestions= async () => {
         setQuestionList(prevList =>
             prevList.map(q =>
-                q.tempID === editing ? { ...q, questionName, questionType } : q
+                q.tempID === editing
+                ? { ...q, name: questionName, type: questionType }
+                : q
+            
             )
         );
     };
@@ -74,17 +78,35 @@ export default function QuestionEditor({pointval,setPointval,}:
     };
 
     const fetchQuestions = async () => {
+        /*
         const question_list = await client.findallQuestions();
         const questionsForQuiz = await question_list.filter((q:any)=>q.quizID ===qid);
 
         await setQuestionList(questionsForQuiz);
         await setQuestionListHold(questionsForQuiz);
+        */
+        const question_list = await client.findallQuestions();
+        const questionsForQuiz = await question_list.filter((q:any)=>q.quiz ===qid);
+        let prevPointval= 0;
+        dispatch(questionsEmptyList());
+
+        questionsForQuiz.forEach((q:any) => {
+            prevPointval += q.points;
+        })
+        setPointval(prevPointval);
     };
 
     const saveAction = async () => {
-        questionListHold.map((q) =>{
-            console.log("TEST!!!");
-            client.deleteQuestion(q.tempID);
+        console.log("quiz question list holder:",rquizQuestionListHolder);
+        
+        rquizQuestionListHolder.forEach((q:any) =>{
+            console.log("TEST!!! q val:",q);
+            client.deleteQuestion(q._id);
+        });
+        
+        rquizQuestionList.forEach((q:any) => {
+            console.log("creating for each q:",q);
+            client.createQuestion(q);
         });
 /*
         questionList.map((q) =>{
@@ -92,14 +114,15 @@ export default function QuestionEditor({pointval,setPointval,}:
         });
 */
         fetchQuestions();
+        setQuestionList(rquizQuestionList);
     };
 
 
     const addQuestion = async () => {
         const question1 = {
-            questionName:"New Question",
-            quizID:qid,
-            questionType:"MULTIPLE",
+            name:"New Question",
+            quiz:qid,
+            type:"MC",
             points:20,
             tempID:new Date().getTime().toString(),
             //tempID:`temp${count}`,
@@ -111,13 +134,18 @@ export default function QuestionEditor({pointval,setPointval,}:
     //setEditing("temp1");
     useEffect(() => {
         console.log("question editor question list:", questionList);
+        console.log("change name:",questionName)
         //console.log("Updated rquizQuestionList:", rquizQuestionList);
         //startLoad();
         //setEditing("temp1");
     }, [questionList]);
 
     useEffect(() => {
+        console.log("questions list7:",rquizQuestionList)
         setQuestionList(rquizQuestionList);
+
+        console.log("questions list8 holder:",rquizQuestionListHolder)
+        //console.log("change name:",questionName)
         //fetchQuestions();
       }, []);
     return(
@@ -138,13 +166,13 @@ export default function QuestionEditor({pointval,setPointval,}:
                             
                             <div>
                                 <input type="text" className="form-control"
-                                onChange={(e) => setQuestionName(e.target.value)} defaultValue={q.questionName}
+                                onChange={(e) => setQuestionName(e.target.value)} defaultValue={q.name}
                                 
                                 />
                                 <select name="" id="" value={questionType} onChange={(e)=>setQuestionType(e.target.value)}>
-                                    <option value="TRUEORFALSE">True or False</option>
-                                    <option value="MULTIPLE">Multiple choise question</option>
-                                    <option value="FillIN">Fill in multiple blanks </option>
+                                    <option value="TF">True or False</option>
+                                    <option value="MC">Multiple choise question</option>
+                                    <option value="Fill-in">Fill in multiple blanks </option>
                                 </select>
                                 <button className="btn btn-success m-1" onClick={()=> {
 
@@ -160,14 +188,14 @@ export default function QuestionEditor({pointval,setPointval,}:
                         (
                             <div>
                                 <div>
-                                    {q.questionName}
+                                    {q.name}
                                 </div>
                                 <div>
-                                    {questionTypeMap[q.questionType]}
+                                    {questionTypeMap[q.type]}
                                 </div>
                                 <button className="btn btn-warning m-1" onClick={()=>{
-                                    setQuestionName(q.questionName);
-                                    setQuestionType(q.questionType);
+                                    setQuestionName(q.name);
+                                    setQuestionType(q.type);
                                     setEditing(q.tempID)
                                     }
                                     }>

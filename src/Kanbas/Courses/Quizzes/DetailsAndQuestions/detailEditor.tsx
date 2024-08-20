@@ -13,6 +13,9 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
 
     const [details,setDetails] = useState<any[]>([]);
 
+    const test = useParams();
+    const quizID= "testquizid123"; 
+
     const navigate = useNavigate();
 
     const [quizName, setQuizName] = useState("");
@@ -23,6 +26,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
     const [quizTimeLimit, setQuizTimeLimit] = useState(false);
     const [quizTimeAmount, setQuizTimeAmount] = useState("");
     const [quizMultipleAttempts, setQuizMultipleAttempts] = useState(false);
+    const [multipleAttemptsAmount,setmultipleAttemptsAmount] = useState(1);
 
     const [quizShowCorrect,setQuizShowCorrect] =useState(false);
     const [quizAccessCode,setQuizAccessCode] = useState("");
@@ -33,6 +37,8 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
     const [quizDue, setQuizDue] = useState("");
     const [quizFrom, setQuizFrom] = useState("");
     const [quizUntil, setQuizUntil] = useState("");
+
+    const [published,SetPublished] = useState(false);
 
 
     const testval = "Project";
@@ -63,18 +69,28 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
 
     const updateQuizDetails = async () => {
         const updatedDetails = {...testDetails,
-            AssignmentGroup:quizAssignGroup,
-            due:quizDue,
-            from:quizFrom,
+            assignmentGroup:quizAssignGroup,
+            dueDate:quizDue,
+            availableDate:quizFrom,
             multipleAttempts:quizMultipleAttempts,
-            quizInstructions:quizInstruction,
-            quizName:quizName,
+            desription:quizInstruction,
+            title:quizName,
             quizType:quizType,
             shuffleAnswers:quizShuffle,
-            timeAmount:quizTimeAmount,
-            timeLimit:quizTimeLimit,
-            until:quizUntil,
-            quizID:"testquizid123",
+            timeLimit:quizTimeAmount,
+            timeLimitExist:quizTimeLimit,
+            untilDate:quizUntil,
+            _id:quizID,
+
+            attemptsAllowed:multipleAttemptsAmount,
+            showCorrectAnswers:quizShowCorrect,
+            accessCode:quizAccessCode,
+            oneQuestionAtATime:quizOneAtTime,
+            webcamRequired:quizWebCam,
+            lockQuestions:quizLockQuestions,
+            published:published,
+
+            
         };
         console.log("updated details:",updatedDetails);
         await client.updateQuizDetails(updatedDetails);
@@ -103,20 +119,27 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
         //console.log("quiz details from server:",details);
         
 
-        setQuizName(rquizDetails.quizName);
-        setQuizInstruction(rquizDetails.quizInstructions);
-        setQuizType(rquizDetails.quizType);
-        setQuizAssignGroup(rquizDetails.AssignmentGroup);
+        setQuizName(rquizDetails.title);
+        setQuizInstruction(rquizDetails.description);
+        setQuizType(rquizDetails.type);
+        setQuizAssignGroup(rquizDetails.assignmentGroup);
         setQuizShuffle(rquizDetails.shuffleAnswers);
-        setQuizTimeLimit(rquizDetails.timeLimit);
-        setQuizTimeAmount(rquizDetails.timeAmount);
+        //setQuizTimeLimit(rquizDetails.timeLimit);
+        setQuizTimeAmount(rquizDetails.timeLimit);
         setQuizMultipleAttempts(rquizDetails.multipleAttempts);
-        setQuizDue(rquizDetails.due);
-        setQuizFrom(rquizDetails.from);
-        setQuizUntil(rquizDetails.until);
+        setQuizDue(rquizDetails.dueDate);
+        setQuizFrom(rquizDetails.availableDate);
+        setQuizUntil(rquizDetails.untilDate);
 
-        setQuizShowCorrect(rquizDetails.ShowCorrect);
+        setQuizShowCorrect(rquizDetails.showCorrectAnswers);
 
+        setmultipleAttemptsAmount(rquizDetails.attemptsAllowed);
+        setQuizShowCorrect(rquizDetails.showCorrectAnswers);
+        setQuizAccessCode(rquizDetails.accessCode);
+        setQuizOneAtTime(rquizDetails.oneQuestionAtATime);
+        SetQuizWebCam(rquizDetails.quizWebCam);
+        setQuizLockQuestions(rquizDetails.quizLockQuestions);
+        SetPublished(rquizDetails.published);
     };
 
 

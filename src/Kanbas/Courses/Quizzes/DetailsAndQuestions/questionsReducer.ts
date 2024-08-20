@@ -19,11 +19,27 @@ const quizQuestionsSlice = createSlice({
             state.rquizQuestionList=[];
             state.rquizQuestionListHolder=[];
         },
-        questionsloadFromDB:(state,{payload:question}) =>{
+        questionEmptyJustLidt:(state)=>{
+            state.rquizQuestionList=[];
+        },
+        copyOverQuestionList:(state,{payload:question})=>{
             const newQuestion = {
+                _id:question._id,
                 quiz:question.quiz,
                 tempID:question.tempID,
-                questionName:question.questionName,
+                name:question.name,
+                points:question.points,
+                type:question.type,
+
+            }
+            state.rquizQuestionList= [...state.rquizQuestionList,newQuestion] as any;
+        },
+        questionsloadFromDB:(state,{payload:question}) =>{
+            const newQuestion = {
+                _id:question._id,
+                quiz:question.quiz,
+                tempID:question.tempID,
+                name:question.name,
                 points:question.points,
                 type:question.type,
 
@@ -39,11 +55,11 @@ const quizQuestionsSlice = createSlice({
         raddQuestion:(state,{payload:question}) =>{
             console.log("reducer payload:",question);
             const newQuestion = {
-                quizID:question.quizID,
+                quiz:question.quiz,
                 tempID:question.tempID,
-                questionName:question.questionName,
+                name:question.name,
                 points:question.points,
-                questionType:question.questionType,
+                type:question.type,
 
             }
             /*
