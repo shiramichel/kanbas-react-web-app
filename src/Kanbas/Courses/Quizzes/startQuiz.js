@@ -75,7 +75,11 @@ export default function StartQuizScreen({ userRole, userLoginId }) {
 
                     return {
                         questionId,
+<<<<<<< HEAD
                         selectedAnswer: answers[questionId],
+=======
+                        selectedAnswer: selectedOption.value,
+>>>>>>> 9afd6ed (Fixed score records)
                         isCorrect
                     };
                 }),

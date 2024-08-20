@@ -240,6 +240,28 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             onChange={(e) => setQuizMultipleAttempts(e.target.checked)}
             defaultChecked = {rquizDetails.multipleAttempts}/>
             <label htmlFor="">Allow Multiple Attempts</label>
+<<<<<<< HEAD
+=======
+
+            {quizMultipleAttempts && (
+        <div className="row align-items-center mt-2">
+          <div className="col-auto">
+            <label htmlFor="" className="col-form-label">
+              Number of Attempts
+            </label>
+          </div>
+            <div className="col-auto">
+                <input
+                type="number"
+                className="form-control"
+                onChange={(e) => setmultipleAttemptsAmount(parseInt(e.target.value))}
+                value={multipleAttemptsAmount}
+                min="1"
+                />
+                </div>
+              </div>
+            )}
+>>>>>>> 9afd6ed (Fixed score records)
             <br />
 
             <input type="checkbox" className='form-check-input'
