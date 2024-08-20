@@ -1,11 +1,10 @@
 import './styles.css'
 import { useState, useEffect } from "react";
-import { useDispatch, } from "react-redux";
+import { useDispatch, useSelector, } from "react-redux";
 import Multiplechoice from "./Multiplechoice";
 import Truefalse from "./Truefalse";
 import Fillinblank from "./Fillinblank";
-import * as client from "../client";
-import { updateQuestion } from "./reducer";
+import { setQuestions, updateQuestion } from "./reducer";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -31,12 +30,14 @@ export default function Editor(
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { updatedQuestions } = useSelector((state: any) => state.quizQuestionsReducer.questions || [] );
+
   const saveQuestion = async (question: any) => {
     if (!question.points) {
       setErrorMessage("Please enter a point value.");
       return;
     };
-    await client.updateQuestion(question);
+    // save locally 
     dispatch(updateQuestion(question));
     handleCancel(); // to close editor after save
   };

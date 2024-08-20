@@ -1,6 +1,6 @@
 import QuizEditorNav from "./quizEditorNav";
 import DetailEditor from "./detailEditor";
-import QuestionEditor from "./questionEditor";
+import QuestionEditor from "../QuestionsEditor";
 import { Navigate, Route, Routes, useLocation,useParams} from "react-router-dom"
 import { useEffect, useState } from "react";
 import * as client from "./client";
@@ -80,8 +80,9 @@ export default function QuizEditor(){
             <div>
                 <Routes>
                     <Route path="Details" element={<DetailEditor pointval={pointval} setPointval={setPointval}/>} />
-                    <Route path="Questions" element={<QuestionEditor pointval={pointval}
-                     setPointval={setPointval}
+                    <Route path="Questions" element={<QuestionEditor 
+                    //pointval={pointval}
+                     //setPointval={setPointval}
                      //questionList={questionList}
                      //setQuestionList={setQuestionList}
                      //questionListHold={questionListHold}
