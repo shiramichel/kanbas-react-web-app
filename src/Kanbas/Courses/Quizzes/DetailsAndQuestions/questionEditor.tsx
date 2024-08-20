@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as client from "./client";
-import {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList} from "./questionsReducer";
+import {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList,questionEmptyJustLidt,copyOverQuestionList} from "./questionsReducer";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function QuestionEditor({pointval,setPointval,}:
@@ -35,13 +35,14 @@ export default function QuestionEditor({pointval,setPointval,}:
     const [questionType,setQuestionType] = useState("");
 
     const test = useParams();
-    console.log("test value in question adder:",test);
+    //console.log("test value in question adder:",test);
     const qid = test.quizId;
     const cid = test.cid;
     //const qid = "testquizid123";
 
+    
     const updateQuestions= async () => {
-        setQuestionList(prevList =>
+        await setQuestionList(prevList =>
             prevList.map(q =>
                 q.tempID === editing
                 ? { ...q, name: questionName, type: questionType }
@@ -49,22 +50,39 @@ export default function QuestionEditor({pointval,setPointval,}:
             
             )
         );
+        //dispatch(questionEmptyJustLidt());
+        //console.log("local question list before loading in to reduce:",questionList);
+        //questionList.map((q:any)=>{
+        //    console.log("question going to store",q);
+        //    dispatch(copyOverQuestionList(q))
+       // })
+            
     };
 
-    const startLoad = async () => {
-        setQuestionList(rquizQuestionList);
-    };
-
-    const saveQuestions = async () =>{
-        questionList.map(  q =>
-            dispatch(
-                raddQuestion(q)
-            )
+/*
+const updateQuestions = async () => {
+    // Wrap setState in a Promise to await it
+    await new Promise(resolve => {
+      setQuestionList(prevList => {
+        const updatedList = prevList.map(q =>
+          q.tempID === editing
+            ? { ...q, name: questionName, type: questionType }
+            : q
         );
-        console.log("question List after save,",rquizQuestionList);
+        resolve(updatedList); // Resolve the Promise with the updated list
+        return updatedList; // Update state with the new list
+      });
+    });
 
+    // Clear the list in the Redux store
+    dispatch(questionEmptyJustLidt());
 
-    };
+    // After state has updated, dispatch the new list to Redux
+    questionList.forEach(q => {
+      dispatch(copyOverQuestionList(q));
+    });
+  };
+*/
 
     /*
     const fetchAllQuestions = async () => {
@@ -72,9 +90,15 @@ export default function QuestionEditor({pointval,setPointval,}:
     }
     */
     const cancelAction = async () => {
-        dispatch(removeQuestions(qid));
-        const temp = rquizQuestionList.filter((q:any) => q.quizID === qid);
-        setQuestionList(temp);
+        //dispatch(removeQuestions(qid));
+        //const temp = rquizQuestionList.filter((q:any) => q.quizID === qid);
+        //setQuestionList(temp);
+        await dispatch(questionEmptyJustLidt());
+        rquizQuestionListHolder.map((q:any)=>{
+            //console.log("question going to store",q);
+            dispatch(copyOverQuestionList(q))
+        })
+
 
         //const details_list = await client.findQuizDetails();
     };
@@ -99,15 +123,15 @@ export default function QuestionEditor({pointval,setPointval,}:
     };
 
     const saveAction = async () => {
-        console.log("quiz question list holder:",rquizQuestionListHolder);
+        //console.log("quiz question list holder:",rquizQuestionListHolder);
         
         rquizQuestionListHolder.forEach((q:any) =>{
-            console.log("TEST!!! q val:",q);
+            //console.log("TEST!!! q val:",q);
             client.deleteQuestion(q._id);
         });
         
         rquizQuestionList.forEach((q:any) => {
-            console.log("creating for each q:",q);
+            //console.log("creating for each q:",q);
             client.createQuestion(q);
         });
 /*
@@ -115,8 +139,8 @@ export default function QuestionEditor({pointval,setPointval,}:
             client.createQuestion(q);
         });
 */
-        fetchQuestions();
-        setQuestionList(rquizQuestionList);
+        //fetchQuestions();
+        //setQuestionList(rquizQuestionList);
     };
 
 
@@ -125,28 +149,54 @@ export default function QuestionEditor({pointval,setPointval,}:
             name:"New Question",
             quiz:qid,
             type:"MC",
-            points:20,
+            points:1,
             tempID:new Date().getTime().toString(),
             //tempID:`temp${count}`,
         };
         setQuestionList([...questionList,question1]);
-        setCount(count+1);
+
+        dispatch(copyOverQuestionList(question1));
+        //setCount(count+1);
         //console.log("question editor question list:",questionList);
     };
     //setEditing("temp1");
+
+
     useEffect(() => {
-        console.log("question editor question list:", questionList);
-        console.log("change name:",questionName)
+
+        dispatch(questionEmptyJustLidt());
+        //console.log("local question list before loading in to reduce:",questionList);
+        questionList.map((q:any)=>{
+            //console.log("question going to store",q);
+            dispatch(copyOverQuestionList(q))
+        })
+        //console.log("question redux after change list redux:", rquizQuestionList);
+        //console.log("question list after change:",questionList)
         //console.log("Updated rquizQuestionList:", rquizQuestionList);
         //startLoad();
         //setEditing("temp1");
     }, [questionList]);
 
+
     useEffect(() => {
-        console.log("questions list7:",rquizQuestionList)
+        //console.log("question redux after change list redux:", rquizQuestionList);
+        //console.log("question list after change:",questionList);
+        let prevPointval= 0;
+        rquizQuestionList.forEach((q:any) => {
+            prevPointval += q.points;
+            
+        });
+        setPointval(prevPointval);
+        //console.log("Updated rquizQuestionList:", rquizQuestionList);
+        //startLoad();
+        //setEditing("temp1");
+    }, [rquizQuestionList]);
+
+    useEffect(() => {
+        //console.log("questions list7:",rquizQuestionList)
         setQuestionList(rquizQuestionList);
 
-        console.log("questions list8 holder:",rquizQuestionListHolder)
+        //console.log("questions list8 holder:",rquizQuestionListHolder)
         //console.log("change name:",questionName)
         //fetchQuestions();
       }, []);
@@ -160,7 +210,7 @@ export default function QuestionEditor({pointval,setPointval,}:
             </div>
 
             <ul className="list-group rounded-0">
-                {questionList.map((q) => (
+                {rquizQuestionList.map((q:any) => (
                     <li className="wd-module list-group-item p-0 fs-5 border-gray">
                         
                         <div className="d-flex justify-content-center">

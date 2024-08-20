@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 export default function QuizEditorNav(){
     
     const test = useParams();
-    console.log("quiz edit test:",test);
+    //console.log("quiz edit test:",test);
     const cid = test.cid;
     const quizId = test.quizId;
-    console.log("cid:",cid);
-    console.log("quizId",quizId);
+    //console.log("cid:",cid);
+    //console.log("quizId",quizId);
     //console.log("quizz cid:",cid);
     return(
         <div>

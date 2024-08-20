@@ -2,19 +2,26 @@ import React, { useEffect, useState } from 'react';
 import * as client from "./client";
 import { Link, useParams } from "react-router-dom";
 import {setQuizDetails,updateQuizDetail} from "./reducer";
+import {updateQuizQuestions,raddQuestion,removeQuestions,questionsloadFromDB,questionsEmptyList,questionEmptyJustLidt,copyOverQuestionList} from "./questionsReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 export default function DetailEditor({pointval,setPointval}:{pointval:number;setPointval:(point:number)=>void}){
 
     const {rquizDetails} = useSelector((state:any) => state.quizDetailsReducer);
+
+    const {rquizQuestionList} = useSelector((state:any) => state.quizQuestionsReducer);
+    const {rquizQuestionListHolder} = useSelector((state:any) => state.quizQuestionsReducer);
+
     const dispatch = useDispatch();
     const [testDetails,setTestDetails] = useState<any[]>([]);
 
     const [details,setDetails] = useState<any[]>([]);
 
     const test = useParams();
-    const quizID= "testquizid123"; 
+    const cid =test.cid;
+    const qid=test.quizId;
+    //const quizID= "testquizid123"; 
 
     const navigate = useNavigate();
 
@@ -80,7 +87,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             timeLimit:quizTimeAmount,
             timeLimitExist:quizTimeLimit,
             untilDate:quizUntil,
-            _id:quizID,
+            _id:qid,
 
             attemptsAllowed:multipleAttemptsAmount,
             showCorrectAnswers:quizShowCorrect,
@@ -93,23 +100,39 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             
         };
         console.log("updated details:",updatedDetails);
+
         await client.updateQuizDetails(updatedDetails);
     }
 
     const cancelAction = async() =>{
-        navigate(`/Kanbas/Courses/$cid/Quizzes`)
+        navigate(`/Kanbas/Courses/${cid}/Quizzes`);
     };
 
+    const saveQuestions = async()=>{
+        rquizQuestionListHolder.forEach((q:any) =>{
+            //console.log("TEST!!! q val:",q);
+            client.deleteQuestion(q._id);
+        });
+        rquizQuestionList.forEach((q:any) => {
+            //console.log("creating for each q:",q);
+            client.createQuestion(q);
+        });
+    };
     const saveAction = async() => {
-        updateQuizDetails();
-
-        //navigate(`/Kanbas/Courses/$cid/Quizzes`)
+        await updateQuizDetails();
+        await saveQuestions();
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/Detail`)
     };
 
-    const saveAndPublish = async() => {
-        updateQuizDetails();
+    const publish = async() => {
+        SetPublished(true);
 
-        //navigate
+    };
+    const saveAndPublish = async() => {
+        await SetPublished
+        await updateQuizDetails();
+        await saveQuestions();
+        navigate(`/Kanbas/Courses/${cid}/Quizzes`);
     };
 
     const setLocalDetails = async () => {
@@ -117,6 +140,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
         //const details = details_list.find((detail:any) => detail.quizID === "testquizid123")
         //setTestDetails(details);
         //console.log("quiz details from server:",details);
+        //const 
         
 
         setQuizName(rquizDetails.title);
@@ -127,9 +151,9 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
         //setQuizTimeLimit(rquizDetails.timeLimit);
         setQuizTimeAmount(rquizDetails.timeLimit);
         setQuizMultipleAttempts(rquizDetails.multipleAttempts);
-        setQuizDue(rquizDetails.dueDate);
-        setQuizFrom(rquizDetails.availableDate);
-        setQuizUntil(rquizDetails.untilDate);
+        setQuizDue(new Date(rquizDetails.dueDate).toLocaleDateString('en-CA'));
+        setQuizFrom(new Date(rquizDetails.availableDate).toLocaleDateString('en-CA'));
+        setQuizUntil(new Date(rquizDetails.untilDate).toLocaleDateString('en-CA'));
 
         setQuizShowCorrect(rquizDetails.showCorrectAnswers);
 
@@ -142,10 +166,11 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
         SetPublished(rquizDetails.published);
     };
 
-
+    
 
     useEffect(() => {
         //fetchQuizDetails();
+        console.log("stored quiz details:",rquizDetails);
         setLocalDetails();
       }, []);
     return(
@@ -153,7 +178,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             <h1>Detail Editor</h1>
             <input type="text" className="form-control" placeholder="Quiz name"
             onChange={(e) => setQuizName(e.target.value)}
-            defaultValue={quizName}/>
+            defaultValue={rquizDetails.title}/>
 
             <label htmlFor="wd-quiz-detail-input">Quiz instructions:</label>
             <br />
@@ -161,14 +186,14 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
                 id="wd-quiz-detail-input"
                 className="form-control"
                 onChange={(e) => setQuizInstruction(e.target.value)}
-                defaultValue={quizInstruction} 
+                defaultValue={rquizDetails.description} 
             ></textarea>
             <br />
 
             <label htmlFor="wd-quiz-detail-quiz-type">Quiz Type </label>
             <select className="form-control" id="wd-quiz-detail-quiz-type"
             onChange={(e) => setQuizType(e.target.value)}
-            defaultValue={quizType}>
+            defaultValue={rquizDetails.type}>
                 <option value="Graded Quiz">Graded Quiz</option>
                 <option value="Practice Quiz">Practice Quiz</option>
                 <option value="Graded Quiz">Graded Quiz</option>
@@ -179,7 +204,7 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             <label htmlFor="wd-quiz-detail-assignment-group">Assignment Group</label>
             <select  className="form-control" id="wd-quiz-detail-assignment-group"
             onChange={(e) => setQuizAssignGroup(e.target.value)}
-            defaultValue={quizAssignGroup}>
+            defaultValue={rquizDetails.assignmentGroup}>
                 <option value="ASSIGNMENTS">ASSIGNMENTS</option>
                 <option value="Exams">Exams</option>
                 <option value="Quizzes">Quizzes</option>
@@ -189,13 +214,13 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             <h3>Options</h3>
             <input type="checkbox" className="form-check-input"
             onChange={(e) =>setQuizShuffle(e.target.checked) }
-            defaultChecked={quizShuffle}/>
+            defaultChecked={rquizDetails.shuffleAnswers}/>
             <label htmlFor="" className="form-check-label ">Shuffle Answers</label>
             <br />
 
             <input type="checkbox" className="form-check-input"
             onChange={(e) => setQuizTimeLimit(e.target.checked)}
-            defaultChecked = {quizTimeLimit}/>
+            defaultChecked = {rquizDetails.timeLimit}/>
             <label htmlFor="">Time Limit</label>
 
             <br />
@@ -213,13 +238,13 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
 
             <input type="checkbox" className='form-check-input'
             onChange={(e) => setQuizMultipleAttempts(e.target.checked)}
-            defaultChecked = {quizMultipleAttempts}/>
+            defaultChecked = {rquizDetails.multipleAttempts}/>
             <label htmlFor="">Allow Multiple Attempts</label>
             <br />
 
             <input type="checkbox" className='form-check-input'
             onChange={(e) => setQuizShowCorrect(e.target.checked)}
-            defaultChecked = {quizShowCorrect}
+            defaultChecked = {rquizDetails.showCorrectAnswers}
             />
             <label htmlFor="">Show Correct Answers</label>
 
@@ -227,27 +252,27 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             <label htmlFor="">access Code</label>
             <input type="text" className='form-constrol'
             onChange={(e) => setQuizAccessCode(e.target.value)}
-            defaultValue={quizAccessCode}
+            defaultValue={rquizDetails.accessCode}
             />
             <br />
 
             <input type="checkbox" className='form-check-input'
             onChange={(e) => setQuizOneAtTime(e.target.checked)}
-            defaultChecked = {quizOneAtTime}
+            defaultChecked = {rquizDetails.oneQuestionAtATime}
             />
             <label htmlFor="">One Question at a Time</label>
             <br />
 
             <input type="checkbox" className='form-check-input'
             onChange={(e) => SetQuizWebCam(e.target.checked)}
-            defaultChecked = {quizWebCam}
+            defaultChecked = {rquizDetails.quizWebCam}
             />
             <label htmlFor="">Webcam Required</label>
             <br />
 
             <input type="checkbox" className='form-check-input'
             onChange={(e) => setQuizLockQuestions(e.target.checked)}
-            defaultChecked = {quizLockQuestions}
+            defaultChecked = {rquizDetails.quizLockQuestions}
             />
             <label htmlFor="">Lock Questions After Answering</label>
 
@@ -278,13 +303,13 @@ export default function DetailEditor({pointval,setPointval}:{pointval:number;set
             </button>
             */}
 
-            <button className='btn btn-danger m-2'>
+            <button className='btn btn-danger m-2' onClick={cancelAction}>
                 Cancel
             </button>
-            <button className='btn btn-warning m-2' onClick={saveDetails}>
+            <button className='btn btn-warning m-2' onClick={saveAction}>
                 Save
             </button>
-            <button className='btn btn-success m-2' onClick={updateQuizDetails}>
+            <button className='btn btn-success m-2' onClick={saveAndPublish}>
                 Save and Publish
             </button>
 

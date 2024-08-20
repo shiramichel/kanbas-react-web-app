@@ -5,7 +5,7 @@ export default function Quizzes2(){
     return(
         
         <div>
-            <h1>TESTing</h1>
+            
             <QuizEditor />
         </div>
         
