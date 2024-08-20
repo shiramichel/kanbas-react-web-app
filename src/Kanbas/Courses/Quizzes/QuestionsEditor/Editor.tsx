@@ -1,23 +1,41 @@
 import './styles.css'
 import { useState, useEffect } from "react";
 import { useDispatch, } from "react-redux";
-import WYSIWYG from "./WYSIWYG";
 import Multiplechoice from "./Multiplechoice";
 import Truefalse from "./Truefalse";
 import Fillinblank from "./Fillinblank";
 import * as client from "../client";
 import { updateQuestion } from "./reducer";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export default function Editor(
   { question, handleCancel }:
     { question: any; handleCancel: () => void; }
 ) {
+  const modules = {
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' },
+        { 'indent': '-1' }, { 'indent': '+1' }],
+        ['clean']
+      ],
+    },
+  };
+
   const dispatch = useDispatch();
 
   const [selectedType, setSelectedType] = useState(question?.type || "MC");
   const [currentQuestion, setCurrentQuestion] = useState(question);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const saveQuestion = async (question: any) => {
+    if (!question.points) {
+      setErrorMessage("Please enter a point value.");
+      return;
+    };
     await client.updateQuestion(question);
     dispatch(updateQuestion(question));
     handleCancel(); // to close editor after save
@@ -79,6 +97,7 @@ export default function Editor(
         <form>
           {/* header - question title, type, points */}
           <div className="d-flex align-items-center">
+          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
             <input
               id="question-title"
               className="form-control me-2"
@@ -112,7 +131,13 @@ export default function Editor(
         <hr />
 
         {/* text box for question */}
-        <WYSIWYG question={currentQuestion} setQuestion={setCurrentQuestion}/>
+        <ReactQuill
+          value={currentQuestion.question}
+          onChange={(content) => setCurrentQuestion({ ...currentQuestion, question: content })}
+          theme="snow"
+          modules={modules}
+          className="mb-3"
+        />
         <hr />
 
         {/* show correct component based on question type */}
