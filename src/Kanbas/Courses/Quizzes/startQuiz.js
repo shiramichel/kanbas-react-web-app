@@ -75,7 +75,7 @@ export default function StartQuizScreen({ userRole, userLoginId }) {
 
                     return {
                         questionId,
-                        selectedAnswer: answers[questionId],
+                        selectedAnswer: selectedOption.value,
                         isCorrect
                     };
                 }),

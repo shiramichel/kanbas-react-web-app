@@ -105,7 +105,7 @@ export default function QuizListScreen( { userRole }) {
       <div className="wd-title p-3 ps-2 bg-secondary d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center">
           <div className="me-2 fs-3" />
-          ASSIGNMENT QUIZZES
+          QUIZZES
         </div>
       </div>
 
@@ -126,7 +126,7 @@ export default function QuizListScreen( { userRole }) {
                   <div className="smaller-text">
                     <span className="text-muted">
                       {calculateAvailability(quiz)} | Due: {new Date(quiz.dueDate).toLocaleDateString()} | {quiz.points} pts | {quiz.questions.length} Questions
-                      {userRole === 'STUDENT'  && quiz.published && <span> | Score: 5</span>}
+                      {userRole === 'STUDENT'  && quiz.published && <span></span>}
                     </span>
                   </div>
                 </div>
