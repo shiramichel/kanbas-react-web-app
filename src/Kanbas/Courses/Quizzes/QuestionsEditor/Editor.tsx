@@ -6,7 +6,7 @@ import Multiplechoice from "./Multiplechoice";
 import Truefalse from "./Truefalse";
 import Fillinblank from "./Fillinblank";
 import * as client from "../client";
-import { updateQuestion } from "../reducer";
+import { updateQuestion } from "./reducer";
 
 export default function Editor(
   { question, handleCancel }:

@@ -1,23 +1,25 @@
+// Mon-Shan quizzes reducer
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  questions: [],
+  quizzes: [],
 };
 
-const questionsSlice = createSlice({
-  name: "questions",
+const quizzesSlice = createSlice({
+  name: "quizzes",
   initialState,
   reducers: {
-    setQuestions: (state, action) => {
-      state.questions = action.payload;
+    setQuizzes: (state, action) => {
+      state.quizzes = action.payload;
     },
-    updateQuestion: (state, { payload: question }) => {
-      state.questions = state.questions.map((q: any) =>
-        q._id === question._id ? question : q
+    updateQuiz: (state, { payload: quiz }) => {
+      state.quizzes = state.quizzes.map((q: any) =>
+        q._id === quiz._id ? quiz : q
       ) as any;
     },
   }
 });
 
-export const { setQuestions, updateQuestion } = questionsSlice.actions;
-export default questionsSlice.reducer;
+export const { setQuizzes, updateQuiz } = quizzesSlice.actions;
+export default quizzesSlice.reducer;

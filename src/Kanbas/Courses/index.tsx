@@ -8,17 +8,14 @@ import { FaAlignJustify } from 'react-icons/fa';
 import Grades from "./Grades";
 //import { courses } from "../Database";
 import PeopleTable from "./People/Table";
+
+// QUIZ SCREEN IMPORTS
 import Quizzes from "./Quizzes";
 import QuizDetails from "./Quizzes/Details";
-import Quizzesn from "./Quizzes/DetailsAndQuestions";
-
-// Mon
-import QuizListScreen from "../Quizzes/QuizzesList";
-import QuizDetailsScreen from "../Quizzes/QuizDetails";
-import QuizEditorScreen from "../Quizzes/QuizEditor";
-import QuizPreviewScreen from "../Quizzes/QuizPreview";
-import StartQuizScreen from "../Quizzes/StartQuiz";
-import QuizResultsScreen from "../Quizzes/QuizResults";
+// import QuizEditor from "./Quizzes/DetailsAndQuestions"; 
+// import QuizPreview from "./Quizzes/Preview";
+// import StartQuiz from "./Quizzes/Start";
+// import QuizResults from "./Quizzes/Results";
 
 
 export default function Courses({ courses, userRole, userLoginId }: { courses: any[]; userRole: any; userLoginId: any }) {
@@ -44,25 +41,20 @@ export default function Courses({ courses, userRole, userLoginId }: { courses: a
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:aid" element={<Editor />} />
             <Route path="Grades" element={<Grades />} />
+
+            {/* QUIZ PATHS */}
+            <Route path="Quizzes" element={<Quizzes userRole={userRole}/>} />
+            <Route path="Quizzes/:quizId/Detail" element={<QuizDetails userRole={userRole}/>} />
+            {/* <Route path="/Quizzes/:quizId/Edit" element={<QuizEditor />} /> */}
+            {/* <Route path="Quizzes/:quizId/Preview" element={<QuizPreviewScreen userRole={userRole} />} /> */}
+            {/* <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuizScreen userRole={userRole} userLoginId={userLoginId}/>} /> */}
+            {/* <Route path="Quizzes/:quizId/Results" element={<QuizResultsScreen userRole={userRole} userLoginId={userLoginId}/>} />  */}
             
-            <Route path="Quizzes/:qid" element={<QuizDetails />} />
-
-            // Mon
-            <Route path="Quizzes" element={<QuizListScreen userRole={userRole} />} />
-            <Route path="Quizzes/:quizId/Edit" element={<QuizEditorScreen userRole={userRole} />} />
-            <Route path="Quizzes/:quizId/Detail" element={<QuizDetailsScreen userRole={userRole} />} />
-            <Route path="Quizzes/:quizId/Preview" element={<QuizPreviewScreen userRole={userRole} />} />
-            <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuizScreen userRole={userRole} userLoginId={userLoginId}/>} />
-            <Route path="Quizzes/:quizId/Results" element={<QuizResultsScreen userRole={userRole} userLoginId={userLoginId}/>} />
-
             <Route path="People" element={<PeopleTable />} />
             <Route path="People/:uid" element={<PeopleTable />} />
-            <Route path="QuizTestN/*" element={<Quizzesn />} />
           </Routes>
         </div>
       </div>
     </div>
   );
 };
-
-<Route path="Quizzes" element={<Quizzes />} />
