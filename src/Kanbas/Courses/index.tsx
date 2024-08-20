@@ -14,9 +14,9 @@ import Quizzes from "./Quizzes";
 import QuizDetails from "./Quizzes/Details";
 import Quizzes2 from "./Quizzes/DetailsAndQuestions/index";
 // import QuizEditor from "./Quizzes/DetailsAndQuestions"; 
-// import QuizPreview from "./Quizzes/Preview";
-// import StartQuiz from "./Quizzes/Start";
-// import QuizResults from "./Quizzes/Results";
+import QuizPreview from "./Quizzes/QuizPreview";
+import StartQuiz from "./Quizzes/startQuiz";
+import QuizResults from "./Quizzes/QuizResults";
 
 
 export default function Courses({ courses, userRole, userLoginId }: { courses: any[]; userRole: any; userLoginId: any }) {
@@ -49,9 +49,9 @@ export default function Courses({ courses, userRole, userLoginId }: { courses: a
             {/*<Route path={`/Kanbas/Courses/:cid/Quizzes/:quizId/Edit/*`} element={<Quizzes2 />}/>*/}
             <Route path={`Quizzes/:quizId/Edit//*`} element={<Quizzes2 />}/>
             {/* <Route path="/Quizzes/:quizId/Edit" element={<QuizEditor />} /> */}
-            {/* <Route path="Quizzes/:quizId/Preview" element={<QuizPreviewScreen userRole={userRole} />} /> */}
-            {/* <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuizScreen userRole={userRole} userLoginId={userLoginId}/>} /> */}
-            {/* <Route path="Quizzes/:quizId/Results" element={<QuizResultsScreen userRole={userRole} userLoginId={userLoginId}/>} />  */}
+            <Route path="Quizzes/:quizId/Preview" element={<QuizPreview userRole={userRole} />} />
+            <Route path="Quizzes/:quizId/StartQuiz" element={<StartQuiz userRole={userRole} userLoginId={userLoginId}/>} />
+            <Route path="Quizzes/:quizId/Results" element={<QuizResults userRole={userRole} userLoginId={userLoginId}/>} /> 
             
             <Route path="People" element={<PeopleTable />} />
             <Route path="People/:uid" element={<PeopleTable />} />
