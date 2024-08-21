@@ -104,7 +104,7 @@ export default function StartQuizScreen({ userRole, userLoginId }) {
                     <div key={question._id} className="question-box">
                         <h3>Question {index + 1}</h3>
                         <p><b>Points:</b> {question.points}</p>
-                        <p>{question.question}</p>
+                        <div dangerouslySetInnerHTML={{ __html: question.question }} />
                         <div className="options-container">
                             {question.options.map(option => (
                                 <label key={option._id} className="option-label">
