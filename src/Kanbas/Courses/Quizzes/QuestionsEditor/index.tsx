@@ -59,15 +59,15 @@ export default function QuestionEditor(
   };
 
   const saveAction = async () => {
-    questions.map((q: any) => {
+    for (const q of questions) {
       if (q._id.includes("NEW")) {
-        client.createQuestion(cid as string, quizId as string, q);
+        await client.createQuestion(cid as string, quizId as string, q);
       } else {
-        client.updateQuestion(q);
+        await client.updateQuestion(q);
       }
-    });
+    }
     const questionData = await client.findQuestionsByQuiz(quizId as string);
-    client.updateQuizQuestions(quizId as string, questionData);
+    await client.updateQuizQuestions(quizId as string, questionData);
     navigate(`/Kanbas/Courses/${cid}/Quizzes/${quizId}/Detail`);
   };
 

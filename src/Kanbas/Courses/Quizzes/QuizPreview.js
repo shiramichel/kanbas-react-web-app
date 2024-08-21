@@ -120,7 +120,7 @@ export default function QuizPreviewScreen({ userRole }) {
                   <span>Question {index + 1}</span>
                   <span>1/1 pts</span>
                 </div>
-                <p>{question.question}</p>
+                <div dangerouslySetInnerHTML={{ __html: question.question }} />
                 {question.options.map((option) => {
                   const isCorrect = question.correctAnswer === option.value;
                   const isSelected = answers[question._id] === option.value;
