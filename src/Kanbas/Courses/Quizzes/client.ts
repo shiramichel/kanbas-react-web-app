@@ -62,7 +62,7 @@ export const deleteQuiz = async (cid: string, quizId: string) => {
 
 // Question-related API calls
 // Create a new question
-export const createQuestion = async (quizId: string, questionData: any) => {
+export const createQuestion = async (cid: string, quizId: string, questionData: any) => {
   try {
     const { data } = await axios.post(`${REMOTE_SERVER}/api/quizzes/${quizId}/questions`, questionData);
     return data;
@@ -114,6 +114,17 @@ export const updateQuestion = async (question: any) => {
     return response.data;
   } catch (error) {
     console.error("Error updating question:", error);
+    throw error;
+  }
+};
+
+// update questions for quiz
+export const updateQuizQuestions = async (quizId: string, questionId: string) => {
+  try {
+    const response = await axios.put(`${QUIZZES_API}/${quizId}/questions`, questionId);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating questions for quiz:", error);
     throw error;
   }
 };

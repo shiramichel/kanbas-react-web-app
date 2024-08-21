@@ -1,17 +1,16 @@
 import { PiTrashLight } from "react-icons/pi";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Multiplechoice(
   { question, setQuestion }:
     { question: any; setQuestion: any; }
 ) {
-  const [showModal, setShowModal] = useState(false);
   const answers = question.options;
 
   const addAnswer = () => {
-    const tempId = new Date().getTime();
+    const tempId = Math.random();
     const newAnswer = { _id: tempId, value: "Option", correct: false };
     setQuestion({ ...question, options: [...answers, newAnswer] });
   };
@@ -28,16 +27,6 @@ export default function Multiplechoice(
 
   const removeAnswer = (id: any) => {
     let newAnswers = answers.filter((a: any) => a._id !== id);
-    if (newAnswers.length === 1) {
-      setShowModal(true);
-      return;
-    }
-    // if deleting correct answer, set another to be correct
-    const answerToDelete = answers.find((a: any) => a._id === id)
-    if (answerToDelete.correct === true) {
-      const newCorrect = newAnswers[0];
-      newAnswers = newAnswers.map((a: any) => (a._id === newCorrect._id ? { ...a, correct: true } : a));
-    }
     setQuestion({ ...question, options: newAnswers });
   };
 
@@ -96,24 +85,6 @@ export default function Multiplechoice(
         <button className="btn btn-link text-danger text-decoration-none" type="button" onClick={() => addAnswer()}>
           + Add Another Answer
         </button>
-      </div>
-
-      {/* modal for delete warning */}
-      <div className={`modal fade ${showModal ? 'show d-block' : ''}`} role="dialog">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Error</h5>
-              <button type="button" className="btn-close" onClick={() => setShowModal(false)} aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p>Unable to delete question - must have at least 2 options.</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={() => setShowModal(false)}>OK</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
