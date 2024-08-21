@@ -1,5 +1,5 @@
 // Mon-Shan -QuizListScreen.js
-
+ 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaPlus, FaEllipsisV, FaCheckCircle, FaTimes } from "react-icons/fa";
@@ -11,13 +11,13 @@ import {
   findAllQuizzesByCourse,
 } from "./client";
 import "./styles.css";
-
+ 
 export default function QuizListScreen({ userRole }) {
   const { cid } = useParams();
   const [quizzes, setQuizzes] = useState([]);
   const [selectedQuizId, setSelectedQuizId] = useState(null);
   const navigate = useNavigate();
-
+ 
   // Fetch all quizzes for the given course ID
   const fetchQuizzes = async () => {
     try {
@@ -27,7 +27,7 @@ export default function QuizListScreen({ userRole }) {
       console.error("Error fetching quizzes:", error);
     }
   };
-
+ 
   // Handle adding a new quiz (Faculty only)
   const handleAddQuiz = async () => {
     try {
@@ -53,13 +53,13 @@ export default function QuizListScreen({ userRole }) {
       console.error("Error creating new quiz:", error);
     }
   };
-
+ 
   // Handle editing an existing quiz (Faculty only)
   const handleEditQuiz = (quizId) => {
     setSelectedQuizId(quizId);
     navigate(`/Kanbas/Courses/${cid}/Quizzes/${quizId}/Detail`);
   };
-
+ 
   // Handle deleting a quiz (Faculty only)
   const handleDeleteQuiz = async (quizId) => {
     try {
@@ -70,7 +70,7 @@ export default function QuizListScreen({ userRole }) {
       console.error("Error deleting quiz:", error);
     }
   };
-
+ 
   // Handle publishing/unpublishing a quiz (Faculty only)
   const handlePublishQuiz = async (quizId, published) => {
     try {
@@ -82,7 +82,7 @@ export default function QuizListScreen({ userRole }) {
       console.error("Error updating quiz publish status:", error);
     }
   };
-
+ 
   // Calculate availability status of the quiz
   const calculateAvailability = (quiz) => {
     const now = new Date();
@@ -96,11 +96,11 @@ export default function QuizListScreen({ userRole }) {
       return "Available";
     }
   };
-
+ 
   const toggleContextMenu = (quizId) => {
     setSelectedQuizId(selectedQuizId === quizId ? null : quizId);
   };
-
+ 
   useEffect(() => {
     if (cid) {
       fetchQuizzes();
@@ -108,7 +108,7 @@ export default function QuizListScreen({ userRole }) {
       console.error("cid is undefined");
     }
   }, [cid]);
-
+ 
   return (
     <div id="wd-quizzes">
       {/* Show Add Quiz button only if the user is a faculty member */}
@@ -119,14 +119,14 @@ export default function QuizListScreen({ userRole }) {
           </button>
         </div>
       )}
-
+ 
       <div className="wd-title p-3 ps-2 bg-secondary d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center">
           <div className="me-2 fs-3" />
           QUIZZES
         </div>
       </div>
-
+ 
       {/* Conditional rendering: Show message if quizzes list is empty */}
       {quizzes.length === 0 ? (
         userRole === "FACULTY" && (
@@ -154,14 +154,14 @@ export default function QuizListScreen({ userRole }) {
                       <span className="text-muted">
                         {calculateAvailability(quiz)} | Due:{" "}
                         {new Date(quiz.dueDate).toLocaleDateString()} |{" "}
-                        {quiz.points} pts | {quiz.questions.length} Questions
+                        {quiz.points} pts
                         {userRole === "STUDENT" && quiz.published && (
                           <span> </span>
                         )}
                       </span>
                     </div>
                   </div>
-
+ 
                   {/* Faculty can edit/publish/unpublish; students cannot */}
                   {userRole === "FACULTY" && (
                     <>
@@ -182,7 +182,7 @@ export default function QuizListScreen({ userRole }) {
                           />
                         )}
                       </div>
-
+ 
                       <div className="quiz-actions">
                         <FaEllipsisV
                           onClick={() => toggleContextMenu(quiz._id)}
@@ -215,3 +215,4 @@ export default function QuizListScreen({ userRole }) {
     </div>
   );
 }
+ 
