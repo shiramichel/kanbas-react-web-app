@@ -27,9 +27,10 @@ const quizQuestionsSlice = createSlice({
                 _id:question._id,
                 quiz:question.quiz,
                 tempID:question.tempID,
-                name:question.name,
+                title:question.name,
                 points:question.points,
                 type:question.type,
+                course:question.course,
 
             }
             state.rquizQuestionList= [...state.rquizQuestionList,newQuestion] as any;
@@ -42,6 +43,7 @@ const quizQuestionsSlice = createSlice({
                 name:question.name,
                 points:question.points,
                 type:question.type,
+                course:question.course,
 
             }
             const existingIndex = state.rquizQuestionList.findIndex((q:any) => q.tempID === newQuestion.tempID);
@@ -60,6 +62,7 @@ const quizQuestionsSlice = createSlice({
                 name:question.name,
                 points:question.points,
                 type:question.type,
+                course:question.course,
 
             }
             /*

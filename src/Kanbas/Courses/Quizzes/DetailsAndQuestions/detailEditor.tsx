@@ -125,14 +125,17 @@ export default function DetailEditor({
   };
 
   const saveQuestions = async () => {
+
+    console.log("reducer saving questions delete action:",rquizQuestionListHolder);
     rquizQuestionListHolder.forEach((q: any) => {
       //console.log("TEST!!! q val:",q);
       client.deleteQuestion(q._id);
     });
-    rquizQuestionList.forEach((q: any) => {
+    console.log("reducer adding action:",rquizQuestionList)
+    //rquizQuestionList.forEach((q: any) => {
       //console.log("creating for each q:",q);
-      client.createQuestion(q);
-    });
+    //  client.createQuestion(q);
+    //});
   };
   const saveAction = async () => {
     await updateQuizDetails();
@@ -144,9 +147,9 @@ export default function DetailEditor({
     SetPublished(true);
   };
   const saveAndPublish = async () => {
-    await SetPublished;
+    await publish();
     await updateQuizDetails();
-    await saveQuestions();
+    //await saveQuestions();
     navigate(`/Kanbas/Courses/${cid}/Quizzes`);
   };
 

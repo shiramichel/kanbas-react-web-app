@@ -29,7 +29,7 @@ export default function QuizEditor(){
         //let pointcounter=0;
         //console.log("Searching CID val:",qid);
         //await console.log("question list in fetch:",question_list)
-        //await console.log("question filtered list in fetch:",questionsForQuiz)
+        await console.log("question filtered list in fetch:",questionsForQuiz)
         let prevPointval= 0;
         dispatch(questionsEmptyList());
         questionsForQuiz.forEach((q:any) => {
@@ -52,7 +52,7 @@ export default function QuizEditor(){
 
     const fetchDetails = async () =>{
         const details_list = await client.findQuizDetails();
-        console.log("detail list:",details_list);
+        //console.log("detail list:",details_list);
         const details = details_list.find((detail:any) => detail._id === qid);
 
         dispatch(setQuizDetails(details));

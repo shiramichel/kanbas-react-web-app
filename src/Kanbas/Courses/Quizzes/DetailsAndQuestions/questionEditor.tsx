@@ -146,10 +146,11 @@ const updateQuestions = async () => {
 
     const addQuestion = async () => {
         const question1 = {
-            name:"New Question",
+            title:"New Question",
             quiz:qid,
             type:"MC",
             points:1,
+            course:cid,
             tempID:new Date().getTime().toString(),
             //tempID:`temp${count}`,
         };
