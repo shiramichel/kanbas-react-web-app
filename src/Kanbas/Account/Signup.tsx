@@ -9,8 +9,10 @@ export default function Signup() {
   const [user, setUser] = useState<any>({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loginId = new Date().getTime().toString();
   const signup = async () => {
     try {
+        user.loginId = loginId;
         const currentUser = await client.signup(user);
         dispatch(setCurrentUser(currentUser));
         navigate("/Kanbas/Account/Profile");
