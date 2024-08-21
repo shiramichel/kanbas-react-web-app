@@ -66,8 +66,8 @@ export default function QuestionEditor(
         client.updateQuestion(q);
       }
     });
-    const questionData = client.findQuestionsByQuiz(quizId as string);
-    client.updateQuizQuestions(quizId as string, quizId as string);
+    const questionData = await client.findQuestionsByQuiz(quizId as string);
+    client.updateQuizQuestions(quizId as string, questionData);
     navigate(`/Kanbas/Courses/${cid}/Quizzes/${quizId}/Detail`);
   };
 

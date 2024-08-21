@@ -119,9 +119,9 @@ export const updateQuestion = async (question: any) => {
 };
 
 // update questions for quiz
-export const updateQuizQuestions = async (quizId: string, questionId: string) => {
+export const updateQuizQuestions = async (quizId: string, questions: any) => {
   try {
-    const response = await axios.put(`${QUIZZES_API}/${quizId}/questions`, questionId);
+    const response = await axios.put(`${QUIZZES_API}/${quizId}/questions`, questions);
     return response.data;
   } catch (error) {
     console.error("Error updating questions for quiz:", error);
